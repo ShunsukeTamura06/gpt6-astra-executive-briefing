@@ -42,7 +42,7 @@ section{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  padding:4.5vh 5.5vw;
+  padding:3.4vh 5vw;
   position:relative;
   overflow:hidden;
 }
@@ -51,20 +51,20 @@ section{
 
 /* ---------- タイポ ---------- */
 h2{
-  font-size:clamp(24px,min(3vw,5.2vh),46px);
+  font-size:clamp(26px,min(3.15vw,5.35vh),52px);
   line-height:1.25;
   letter-spacing:-0.02em;
-  margin:0 0 .5em;
+  margin:0 0 .38em;
   font-weight:700;
 }
 .kicker{
-  font-size:clamp(12px,min(1vw,1.7vh),16px);
+  font-size:clamp(13px,min(1.12vw,1.9vh),19px);
   letter-spacing:0.18em;
   color:var(--ink-2);
-  margin:0 0 1em;
+  margin:0 0 .6em;
   font-weight:600;
 }
-.lead{font-size:clamp(14px,min(1.3vw,2.2vh),22px);line-height:1.65;color:var(--ink-2);margin:0;}
+.lead{font-size:clamp(16px,min(1.45vw,2.45vh),26px);line-height:1.65;color:var(--ink-2);margin:0;}
 .pop{color:var(--blue);}
 .tight{letter-spacing:-0.03em;}
 
@@ -80,20 +80,20 @@ h2{
 }
 .hero .arrowbig{color:#5a5a5f;padding:0 .12em;}
 .hero .sub{
-  font-size:clamp(14px,min(1.6vw,2.7vh),26px);
+  font-size:clamp(16px,min(1.72vw,2.92vh),30px);
   color:#a1a1a6;
   margin-top:1em;
   letter-spacing:.02em;
   line-height:1.6;
 }
 .hero .ctx{
-  font-size:clamp(11px,min(1vw,1.7vh),15px);
+  font-size:clamp(13px,min(1.1vw,1.88vh),19px);
   color:#6e6e73;
   margin-top:2.4em;
   line-height:1.8;
 }
 .hero .q{
-  font-size:clamp(15px,min(1.7vw,2.9vh),28px);
+  font-size:clamp(17px,min(1.82vw,3.1vh),32px);
   color:#a1a1a6;font-weight:700;line-height:1.5;margin:0 0 1.2em;
 }
 .scrollhint{
@@ -105,39 +105,39 @@ h2{
 
 /* ---------- 汎用パーツ ---------- */
 .alt{background:var(--bg-2);}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,44px);align-items:stretch;}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.7vw,28px);align-items:stretch;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,36px);align-items:stretch;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(11px,1.5vw,24px);align-items:stretch;}
 .card{
   background:#fff;border:1px solid var(--line);border-radius:16px;
-  padding:clamp(14px,min(1.7vw,2.9vh),26px);
+  padding:clamp(12px,min(1.45vw,2.45vh),22px);
 }
-.card h3{font-size:clamp(14px,min(1.3vw,2.2vh),21px);margin:0 0 .6em;font-weight:700;}
-.card p{margin:0;font-size:clamp(12px,min(1.02vw,1.75vh),17px);line-height:1.7;color:var(--ink-2);}
+.card h3{font-size:clamp(16px,min(1.42vw,2.42vh),25px);margin:0 0 .6em;font-weight:700;}
+.card p{margin:0;font-size:clamp(14px,min(1.15vw,1.95vh),22px);line-height:1.7;color:var(--ink-2);}
 /* .card p より詳細度を上げる（これが無いと大きい数字が本文サイズに潰れる） */
 .big-num,.card p.big-num{
-  font-size:clamp(30px,min(4.2vw,7.2vh),68px);font-weight:700;letter-spacing:-0.03em;line-height:1;
+  font-size:clamp(32px,min(4.3vw,7.3vh),72px);font-weight:700;letter-spacing:-0.03em;line-height:1;
   color:var(--ink);
 }
 .unit{font-size:.42em;font-weight:600;color:var(--ink-2);margin-left:.15em;}
 .foot{
-  margin-top:1.4em;font-size:clamp(10px,min(.8vw,1.35vh),13px);color:#86868b;line-height:1.7;
+  margin-top:.85em;font-size:clamp(12px,min(.95vw,1.6vh),18px);color:#86868b;line-height:1.7;
 }
 /* 入れ子カード（1枚に複数情報を載せる密度用） */
-.mini{padding:clamp(10px,min(1.15vw,2vh),18px);}
-.mini .big-num,.mini p.big-num{font-size:clamp(22px,min(2.9vw,5vh),44px);}
-.mini p{font-size:clamp(11px,min(.9vw,1.55vh),15px);line-height:1.55;}
+.mini{padding:clamp(9px,min(1vw,1.7vh),15px);}
+.mini .big-num,.mini p.big-num{font-size:clamp(24px,min(3vw,5.1vh),48px);}
+.mini p{font-size:clamp(14px,min(1.2vw,2.05vh),22px);line-height:1.55;}
 
 /* ---------- ファネル図 ---------- */
 .funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:.8em 0 .3em;}
 .funnel-band{
   display:flex;align-items:center;justify-content:center;text-align:center;
   color:#fff;font-weight:700;border-radius:9px;padding:10px 14px;width:100%;
-  font-size:clamp(12px,min(1vw,1.7vh),16px);line-height:1.35;
+  font-size:clamp(13px,min(1.12vw,1.9vh),19px);line-height:1.35;
   opacity:0;transform:translateY(10px) scaleX(.94);transform-origin:center;
   transition:opacity .5s ease,transform .5s cubic-bezier(.22,.9,.28,1);
 }
 .in .funnel-band{opacity:1;transform:translateY(0) scaleX(1);}
-.funnel-band small{display:block;font-weight:500;opacity:.85;font-size:.8em;margin-top:3px;}
+.funnel-band small{display:block;font-weight:500;opacity:.85;font-size:.84em;margin-top:3px;}
 .funnel-arrow{color:var(--ink-2);font-size:13px;line-height:1;opacity:0;transition:opacity .4s ease .15s;}
 .in .funnel-arrow{opacity:1;}
 
@@ -145,10 +145,10 @@ h2{
 [data-count]{font-variant-numeric:tabular-nums;}
 
 /* ---------- バーチャート ---------- */
-.bars{display:flex;flex-direction:column;gap:clamp(8px,min(1.2vw,2vh),18px);}
+.bars{display:flex;flex-direction:column;gap:clamp(7px,min(1vw,1.7vh),14px);}
 .bar{display:grid;grid-template-columns:minmax(120px,14vw) 1fr minmax(66px,6vw);align-items:center;gap:clamp(8px,1vw,16px);}
-.bar .nm{font-size:clamp(11px,min(.95vw,1.6vh),16px);text-align:right;line-height:1.3;}
-.bar .nm small{display:block;color:var(--ink-2);font-size:.82em;font-weight:400;}
+.bar .nm{font-size:clamp(12px,min(1.08vw,1.85vh),19px);text-align:right;line-height:1.3;}
+.bar .nm small{display:block;color:var(--ink-2);font-size:.84em;font-weight:400;}
 .track{background:#e3e3e6;border-radius:99px;height:clamp(14px,min(1.7vw,2.9vh),28px);overflow:hidden;}
 .fill{
   height:100%;border-radius:99px;background:var(--blue-soft);
@@ -163,19 +163,19 @@ h2{
 .bar.hl .nm{font-weight:700;color:var(--ink);}
 .bar.hl .nm small{color:var(--blue);font-weight:600;}
 .bar.hl .vl{color:var(--blue);}
-.bar .vl{font-size:clamp(13px,min(1.15vw,2vh),21px);font-weight:700;white-space:nowrap;}
+.bar .vl{font-size:clamp(15px,min(1.28vw,2.18vh),24px);font-weight:700;white-space:nowrap;}
 .in .fill{width:var(--w);}
 /* 半カラムに収める圧縮版 */
 .bars.compact .bar{grid-template-columns:minmax(80px,8vw) 1fr minmax(50px,4.6vw);gap:8px;}
-.bars.compact .nm{font-size:clamp(10px,min(.82vw,1.4vh),14px);}
-.bars.compact .vl{font-size:clamp(12px,min(1vw,1.7vh),18px);}
+.bars.compact .nm{font-size:clamp(11px,min(.95vw,1.62vh),17px);}
+.bars.compact .vl{font-size:clamp(13px,min(1.12vw,1.92vh),21px);}
 .bars.compact .track{height:clamp(12px,min(1.4vw,2.4vh),22px);}
 
 /* ---------- 比較テーブル ---------- */
-table{width:100%;border-collapse:collapse;font-size:clamp(11px,min(.98vw,1.68vh),17px);}
+table{width:100%;border-collapse:collapse;font-size:clamp(13px,min(1.1vw,1.88vh),21px);}
 th,td{padding:.5em .4em;border-bottom:1px solid var(--line);text-align:right;}
 th:first-child,td:first-child{text-align:left;}
-th{font-size:.82em;color:var(--ink-2);font-weight:600;border-bottom:1.5px solid #b9b9be;}
+th{font-size:.85em;color:var(--ink-2);font-weight:600;border-bottom:1.5px solid #b9b9be;}
 td.g{color:var(--blue);font-weight:700;}
 /* 表内の見出し行（知識／自律作業の区切り） */
 tr.grp td{
@@ -184,10 +184,10 @@ tr.grp td{
 }
 tr.grp td .hint2{font-weight:600;}
 /* 英語の評価名だけでは伝わらないため、下に日本語の補足を添える */
-td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:400;line-height:1.3;margin-top:.15em;}
+td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:400;line-height:1.3;margin-top:.15em;}
 .tag{
   display:inline-block;border:1px solid var(--line);border-radius:99px;
-  padding:.3em .85em;font-size:clamp(11px,min(.92vw,1.58vh),15px);color:var(--ink-2);margin:.18em .2em;
+  padding:.3em .85em;font-size:clamp(12px,min(1.05vw,1.8vh),19px);color:var(--ink-2);margin:.18em .2em;
 }
 
 /* ---------- 動画 ---------- */
@@ -198,10 +198,10 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
 .vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
 .vid .hint{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  color:#8a8a90;font-size:clamp(11px,min(.95vw,1.6vh),15px);line-height:1.9;text-align:center;padding:1em;
+  color:#8a8a90;font-size:clamp(12px,min(1.05vw,1.8vh),18px);line-height:1.9;text-align:center;padding:1em;
 }
 .vid .hint code{background:#1e1e22;color:#c9c9cf;padding:.15em .5em;border-radius:5px;font-size:.95em;}
-.caption{margin-top:.7em;font-size:clamp(12px,min(1.02vw,1.75vh),18px);line-height:1.55;}
+.caption{margin-top:.7em;font-size:clamp(14px,min(1.2vw,2.05vh),22px);line-height:1.55;}
 
 /* ---------- 制約セクション（トーン切替） ---------- */
 .warn{background:#17171a;color:#f5f5f7;}
@@ -220,16 +220,16 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
 .fc .card.dash h3{color:var(--ink-2);}
 .badge{
   display:inline-block;background:#6e6e73;color:#fff;border-radius:7px;
-  padding:.24em .9em;font-size:clamp(11px,min(.92vw,1.58vh),15px);font-weight:700;letter-spacing:.1em;
+  padding:.24em .9em;font-size:clamp(12px,min(1.05vw,1.8vh),19px);font-weight:700;letter-spacing:.1em;
   margin-bottom:.9em;
 }
 /* 62.7% と 99.9% の測り方の違いを説明する注記 */
 .numnote{
   border:1px solid var(--line);border-radius:12px;background:var(--bg-2);
   padding:clamp(9px,min(1.05vw,1.8vh),16px) clamp(12px,1.4vw,20px);
-  margin-top:clamp(10px,1.6vh,18px);
+  margin-top:clamp(7px,1.1vh,13px);
 }
-.numnote p{margin:0;font-size:clamp(11px,min(.95vw,1.62vh),16px);line-height:1.7;color:var(--ink-2);}
+.numnote p{margin:0;font-size:clamp(12px,min(1.08vw,1.85vh),19px);line-height:1.7;color:var(--ink-2);}
 .numnote strong{color:var(--ink);}
 .numnote .k{color:var(--blue);font-weight:700;}
 
@@ -237,14 +237,14 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
 .factbox p{color:var(--ink);margin-top:.45em;}
 .factbox p:first-child{margin-top:0;}
 .factbox .when{color:var(--blue);font-weight:700;margin-right:.4em;}
-.factbox .cav{color:var(--ink-2);font-size:.88em;margin-top:.7em;line-height:1.6;}
+.factbox .cav{color:var(--ink-2);font-size:.9em;margin-top:.7em;line-height:1.6;}
 
 /* 締めの黒帯（冒頭の黒画面と呼応させる） */
 .closer{
   background:#17171a;color:#fff;border-radius:14px;text-align:center;
   padding:clamp(12px,min(1.5vw,2.6vh),24px) 1.2em;margin-top:clamp(12px,1.6vh,22px);
 }
-.closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(16px,min(1.95vw,3.3vh),32px);}
+.closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(18px,min(2.05vw,3.5vh),36px);}
 
 /* ---------- 進行ドット ---------- */
 .dots{
@@ -340,13 +340,13 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
           <div class="bar hl"><div class="nm">9 / 2<small>同 Astra・別の測り方</small></div><div class="track"><div class="fill cond" style="--w:99.9%"></div></div><div class="vl">99.9%</div></div>
           <div class="bar" style="margin-top:.2em"><div class="nm" style="font-weight:700">人間</div><div class="track"><div class="fill" style="--w:100%;background:#c9c9cf"></div></div><div class="vl">100%</div></div>
         </div>
-        <p style="margin-top:.9em"><span style="display:inline-block;width:22px;height:9px;border-radius:99px;background:repeating-linear-gradient(135deg,var(--blue) 0 4px,#6ea8e4 4px 8px);margin-right:.5em;vertical-align:middle"></span>縞の棒は<strong style="color:var(--ink)">他社と横並びで比較できない条件</strong>での数字（下記参照）。</p>
+        <p style="margin-top:.9em"><span style="display:inline-block;width:22px;height:9px;border-radius:99px;background:repeating-linear-gradient(135deg,var(--blue) 0 4px,#6ea8e4 4px 8px);margin-right:.5em;vertical-align:middle"></span>縞の棒は<strong style="color:var(--ink)">横並び比較できない条件</strong>での数字。</p>
       </div>
     </div>
     <div class="numnote">
-      <p><strong>「Astraは99.9%」と聞いた場合　</strong>どちらも本当で、測り方が2通りあります。グラフの <span class="k">62.7%</span> は、各社のモデルを<strong>同じ条件に揃えて横並びで比べる</strong>ときの数字。<span class="k">99.9%</span> は、<strong>途中まで考えた内容を保持したまま解き進められる</strong>条件で、Astraの力を最大限引き出したときの数字です。他社と比較するなら前者、Astraの上限を見るなら後者。</p>
+      <p><strong>「Astraは99.9%」と聞いた場合　</strong>どちらも本当で、測り方が2通りあります。<span class="k">62.7%</span> は<strong>各社を同じ条件に揃えて比べた</strong>とき、<span class="k">99.9%</span> は<strong>途中まで考えた内容を保持したまま解き進められる</strong>条件で、Astraの力を最大限引き出したときの数字です。</p>
     </div>
-    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。62.7%は各社共通条件、99.9%はOpenAI提供の実行環境での測定値。Source: OpenAI / ARC Prize Foundation</p>
+    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。Source: OpenAI / ARC Prize Foundation</p>
   </div>
 </section>
 
@@ -366,13 +366,13 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
           <span class="tag">ゴール　教えない</span>
           <span class="tag">操作方法　教えない</span>
         </div>
-        <p class="center" style="font-size:clamp(15px,min(1.6vw,2.7vh),26px);color:var(--ink);font-weight:700;line-height:1.55;margin:0">
+        <p class="center" style="font-size:clamp(17px,min(1.72vw,2.92vh),30px);color:var(--ink);font-weight:700;line-height:1.55;margin:0">
           探索 → 仕組みを理解<br>→ 目標を見つける → 計画して実行
         </p>
         <p class="lead center" style="margin-top:1em">
           正解を知っているかではなく、初めての環境で<br>「何をすべきか」を自分で組み立てられるか。
         </p>
-        <p class="lead center" style="margin-top:1.4em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.15vw,2vh),19px);border-top:1px solid var(--line);padding-top:1em">
+        <p class="lead center" style="margin-top:1.4em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.25vw,2.15vh),22px);border-top:1px solid var(--line);padding-top:1em">
           しかも「総当たり」ではない
         </p>
         <div class="grid2" style="gap:12px;margin-top:.7em">
@@ -396,11 +396,11 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
   <div class="wrap">
     <p class="kicker">実際のソフトで</p>
     <h2>同じことが、すでに起きている</h2>
-    <div class="center" style="margin-bottom:.7em">
+    <div class="center" style="margin-bottom:.5em">
       <span class="tag">人と同じようにマウスとキーボードで操作する機能は約2年前からある</span>
       <span class="tag">どちらも人間が使っているソフトそのもの</span>
     </div>
-    <p class="lead center" style="margin:0 auto 1.1em;max-width:60em">
+    <p class="lead center" style="margin:0 auto .8em;max-width:60em">
       <strong style="color:var(--ink)">これまで</strong>は、手順を細かく指示しないと途中で失敗し、実用には遠いものでした<br>（当時の到達度 <strong style="color:var(--ink)">22%</strong>／同じ課題を人間がやると 約72%）。<br>
       <strong style="color:var(--ink)">今回上がったのは、画面を見てマウスとキーボードを動かせることではなく</strong>、<br>その元になる<span class="pop" style="font-weight:700">「何をすべきかを理解して、段取りを組む」力</span>です。
     </p>
@@ -420,7 +420,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
         <p class="caption center">「ゴッホ風に、金門橋も」の指示だけで<br>絵画ソフト <strong>Krita</strong> を操作し、白紙から描き上げる</p>
       </div>
     </div>
-    <p class="center" style="margin:1.1em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
+    <p class="center" style="margin:.8em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(1.82vw,3.1vh),31px)">
       どちらも <span class="pop">AI用に作り直していない</span>、人間が普段使っているソフトそのもの
     </p>
   </div>
@@ -441,7 +441,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
           <div class="funnel-arrow" style="transition-delay:.6s">↓</div>
           <div class="funnel-band" style="background:#5b6472;width:50%;transition-delay:.65s">自動化</div>
         </div>
-        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);border-top:1px solid var(--line);padding-top:.8em">
+        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);border-top:1px solid var(--line);padding-top:.8em">
           「AIが使える形」に仕事の側を変える必要があった
         </p>
         <p class="foot" style="margin-top:.7em">API＝外部のシステムから呼び出すための接続口／RPA＝人の画面操作を記録して自動再生する仕組み</p>
@@ -455,12 +455,12 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
           <div class="funnel-arrow" style="transition-delay:.7s">↓</div>
           <div class="funnel-band" style="background:var(--blue);width:90%;transition-delay:.75s">AI化の検討対象</div>
         </div>
-        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);border-top:1px solid var(--line);padding-top:.8em">
+        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);border-top:1px solid var(--line);padding-top:.8em">
           AIが「人間の仕事環境」に直接入る
         </p>
       </div>
     </div>
-    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(2vw,3.4vh),33px)">
+    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(19px,min(2.1vw,3.6vh),37px)">
       「AIにできる業務探し」から<span class="pop">「この仕事も渡せないか」</span>へ
     </p>
   </div>
@@ -476,11 +476,11 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
         <h3>コスト</h3>
         <p class="big-num">約2.6<span class="unit">万ドル</span></p>
         <p style="margin-top:.8em">ARC-AGI-3 で 62.7% を出すのにかかった費用（1回の評価。約400万円）</p>
-        <p style="margin-top:.7em;font-size:.9em;border-top:1px solid #35353c;padding-top:.7em">※ 99.9%を出した条件では<strong style="color:#f5f5f7">約1.9万ドル</strong>。少ない手数で解けるぶん、<strong style="color:#f5f5f7">スコアが高い方が安い</strong>という逆転が起きている。</p>
+        <p style="margin-top:.7em;font-size:.92em;border-top:1px solid #35353c;padding-top:.7em">※ 99.9%を出した条件では<strong style="color:#f5f5f7">約1.9万ドル</strong>。少ない手数で解けるぶん、<strong style="color:#f5f5f7">スコアが高い方が安い</strong>という逆転が起きている。</p>
       </div>
       <div class="card">
         <h3>成果物の検証</h3>
-        <p style="font-size:clamp(15px,min(1.5vw,2.5vh),25px);line-height:1.5;color:#f5f5f7;font-weight:700;margin:.3em 0">
+        <p style="font-size:clamp(17px,min(1.62vw,2.75vh),28px);line-height:1.5;color:#f5f5f7;font-weight:700;margin:.3em 0">
           一見、完成して<br>見えてしまう
         </p>
         <p style="margin-top:.8em">Astraが設計した電子回路の基板について、専門のエンジニアからは「安全性や法規への適合は結局あらためて検証が必要」との指摘。<strong style="color:#f5f5f7">形になることと、そのまま使えることは別。</strong></p>
@@ -491,7 +491,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
         <p style="margin-top:.8em">人間なら100%解ける課題で、Astraがまだ解けていない割合（到達度は62.7%）</p>
       </div>
     </div>
-    <p class="center" style="margin:1.3em 0 0;font-weight:700;font-size:clamp(16px,min(1.9vw,3.2vh),30px);color:#fff">
+    <p class="center" style="margin:1.3em 0 0;font-weight:700;font-size:clamp(18px,min(2vw,3.4vh),34px);color:#fff">
       能力の話と、<span style="color:#e8c979">任せてよいかの話は別</span>
     </p>
   </div>
@@ -506,17 +506,17 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
       <div class="card dash">
         <h3>半導体設計</h3>
         <p>設計書を渡して</p>
-        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「性能・消費電力・面積を改善して」</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);line-height:1.5">「性能・消費電力・面積を改善して」</p>
       </div>
       <div class="card dash">
         <h3>AI研究</h3>
         <p>論文と実装を渡して</p>
-        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「ボトルネックを見つけて改善して」</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);line-height:1.5">「ボトルネックを見つけて改善して」</p>
       </div>
       <div class="card dash">
         <h3>金融工学</h3>
         <p>未整理の問題を渡して</p>
-        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「定式化して解法を探して」</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);line-height:1.5">「定式化して解法を探して」</p>
       </div>
     </div>
     <div class="card factbox" style="margin-top:1em;background:#fff">
@@ -527,7 +527,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
     </div>
     <div class="closer">
       <p>「今はまだできない」を<span style="color:#5aa9f5">固定した前提に置けない</span></p>
-      <p style="font-size:clamp(11px,min(1vw,1.7vh),16px);font-weight:500;color:#a1a1a6;margin-top:.6em">2026 / 3　ほぼ 0%　→　2026 / 9　62.7%</p>
+      <p style="font-size:clamp(13px,min(1.12vw,1.9vh),19px);font-weight:500;color:#a1a1a6;margin-top:.6em">2026 / 3　ほぼ 0%　→　2026 / 9　62.7%</p>
     </div>
   </div>
 </section>
@@ -556,7 +556,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:4
         <p style="margin-top:.6em">Craig Falls — Head of Quantitative Research, Jane Street</p>
       </div>
     </div>
-    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
+    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(1.82vw,3.1vh),31px)">
       実務家は、<span class="pop">1社のモデルを妄信せず</span>目的別に使い分け始めている
     </p>
     <p class="foot">それぞれ OpenAI 公式サイト・Anthropic 公式サイトに掲載の顧客コメント。左は Astra 社内の前モデル（GPT-5.6 Sol）比較であり、Claude との直接比較ではない。Source: openai.com, anthropic.com</p>
