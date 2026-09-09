@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPT-6 Astra ― エンジニア向け勉強会</title>
+<style>
+/* =========================================================
+   完全オフライン。外部リソース参照ゼロ。
+   フォントはWindows/Mac標準搭載のもののみ。
+   投影前提のため文字サイズは vw と vh の小さい方に追従させ、
+   16:9 の短い画面でも1枚に収まるようにしている。
+   ========================================================= */
+:root{
+  --ink:#1d1d1f;
+  --ink-2:#6e6e73;
+  --line:#d2d2d7;
+  --bg:#ffffff;
+  --bg-2:#f5f5f7;
+  --blue:#0066cc;
+  --blue-soft:#b8d4f0;
+  --amber:#8a6d1f;
+  --amber-bg:#fdf9ef;
+  --amber-line:#d9b85c;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:"Yu Gothic Medium","Yu Gothic",YuGothic,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+}
+section{
+  height:100vh;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:3.4vh 5vw;
+  position:relative;
+  overflow:hidden;
+}
+.wrap{width:100%;max-width:1240px;}
+.center{text-align:center;}
+
+/* ---------- タイポ ---------- */
+h2{
+  font-size:clamp(26px,min(3.15vw,5.35vh),52px);
+  line-height:1.25;
+  letter-spacing:-0.02em;
+  margin:0 0 .38em;
+  font-weight:700;
+}
+.kicker{
+  font-size:clamp(13px,min(1.12vw,1.9vh),19px);
+  letter-spacing:0.18em;
+  color:var(--ink-2);
+  margin:0 0 .6em;
+  font-weight:600;
+}
+.lead{font-size:clamp(16px,min(1.45vw,2.45vh),26px);line-height:1.65;color:var(--ink-2);margin:0;}
+.pop{color:var(--blue);}
+.tight{letter-spacing:-0.03em;}
+
+/* ---------- Hero ---------- */
+.hero{background:#000;color:#fff;}
+.hero .huge{
+  font-size:clamp(40px,min(8.6vw,15vh),132px);
+  font-weight:700;
+  letter-spacing:-0.045em;
+  line-height:1;
+  margin:0;
+  white-space:nowrap;
+}
+.hero .arrowbig{color:#5a5a5f;padding:0 .12em;}
+.hero .sub{
+  font-size:clamp(16px,min(1.72vw,2.92vh),30px);
+  color:#a1a1a6;
+  margin-top:1em;
+  letter-spacing:.02em;
+  line-height:1.6;
+}
+.hero .ctx{
+  font-size:clamp(13px,min(1.1vw,1.88vh),19px);
+  color:#6e6e73;
+  margin-top:2.4em;
+  line-height:1.8;
+}
+.hero .q{
+  font-size:clamp(17px,min(1.82vw,3.1vh),32px);
+  color:#a1a1a6;font-weight:700;line-height:1.5;margin:0 0 1.2em;
+}
+.scrollhint{
+  position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);
+  color:#6e6e73;font-size:13px;letter-spacing:.1em;
+  animation:bob 2.2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,7px);}}
+
+/* ---------- 汎用パーツ ---------- */
+.alt{background:var(--bg-2);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,36px);align-items:stretch;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(11px,1.5vw,24px);align-items:stretch;}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:clamp(12px,min(1.45vw,2.45vh),22px);
+}
+.card h3{font-size:clamp(16px,min(1.42vw,2.42vh),25px);margin:0 0 .6em;font-weight:700;}
+.card p{margin:0;font-size:clamp(14px,min(1.15vw,1.95vh),22px);line-height:1.7;color:var(--ink-2);}
+/* .card p より詳細度を上げる（これが無いと大きい数字が本文サイズに潰れる） */
+.big-num,.card p.big-num{
+  font-size:clamp(32px,min(4.3vw,7.3vh),72px);font-weight:700;letter-spacing:-0.03em;line-height:1;
+  color:var(--ink);
+}
+.unit{font-size:.42em;font-weight:600;color:var(--ink-2);margin-left:.15em;}
+.foot{
+  margin-top:.85em;font-size:clamp(12px,min(.95vw,1.6vh),18px);color:#86868b;line-height:1.7;
+}
+/* 入れ子カード（1枚に複数情報を載せる密度用） */
+.mini{padding:clamp(9px,min(1vw,1.7vh),15px);}
+.mini .big-num,.mini p.big-num{font-size:clamp(24px,min(3vw,5.1vh),48px);}
+.mini p{font-size:clamp(14px,min(1.2vw,2.05vh),22px);line-height:1.55;}
+
+/* ---------- ファネル図 ---------- */
+.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:.8em 0 .3em;}
+.funnel-band{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  color:#fff;font-weight:700;border-radius:9px;padding:10px 14px;width:100%;
+  font-size:clamp(13px,min(1.12vw,1.9vh),19px);line-height:1.35;
+  opacity:0;transform:translateY(10px) scaleX(.94);transform-origin:center;
+  transition:opacity .5s ease,transform .5s cubic-bezier(.22,.9,.28,1);
+}
+.in .funnel-band{opacity:1;transform:translateY(0) scaleX(1);}
+.funnel-band small{display:block;font-weight:500;opacity:.85;font-size:.84em;margin-top:3px;}
+.funnel-arrow{color:var(--ink-2);font-size:13px;line-height:1;opacity:0;transition:opacity .4s ease .15s;}
+.in .funnel-arrow{opacity:1;}
+
+/* 大きい数字のカウントアップ */
+[data-count]{font-variant-numeric:tabular-nums;}
+
+/* ---------- バーチャート ---------- */
+.bars{display:flex;flex-direction:column;gap:clamp(7px,min(1vw,1.7vh),14px);}
+.bar{display:grid;grid-template-columns:minmax(120px,14vw) 1fr minmax(66px,6vw);align-items:center;gap:clamp(8px,1vw,16px);}
+.bar .nm{font-size:clamp(12px,min(1.08vw,1.85vh),19px);text-align:right;line-height:1.3;}
+.bar .nm small{display:block;color:var(--ink-2);font-size:.84em;font-weight:400;}
+.track{background:#e3e3e6;border-radius:99px;height:clamp(14px,min(1.7vw,2.9vh),28px);overflow:hidden;}
+.fill{
+  height:100%;border-radius:99px;background:var(--blue-soft);
+  width:0;transition:width 1.15s cubic-bezier(.22,.9,.28,1);
+}
+.fill.key{background:var(--blue);}
+.fill.nil{background:#9ea3ab;}
+/* Astra の2行を強調（この2本が本題なので、他社・人間の行と差をつける） */
+.bar.hl{background:rgba(0,102,204,.07);border-radius:9px;padding:5px 7px;margin:-5px -7px;}
+.bar.hl .nm{font-weight:700;color:var(--ink);}
+.bar.hl .nm small{color:var(--blue);font-weight:600;}
+.bar.hl .vl{color:var(--blue);}
+.bar .vl{font-size:clamp(15px,min(1.28vw,2.18vh),24px);font-weight:700;white-space:nowrap;}
+.in .fill{width:var(--w);}
+/* 半カラムに収める圧縮版 */
+.bars.compact .bar{grid-template-columns:minmax(80px,8vw) 1fr minmax(50px,4.6vw);gap:8px;}
+.bars.compact .nm{font-size:clamp(11px,min(.95vw,1.62vh),17px);}
+.bars.compact .vl{font-size:clamp(13px,min(1.12vw,1.92vh),21px);}
+.bars.compact .track{height:clamp(12px,min(1.4vw,2.4vh),22px);}
+
+/* ---------- 比較テーブル ---------- */
+table{width:100%;border-collapse:collapse;font-size:clamp(13px,min(1.1vw,1.88vh),21px);}
+th,td{padding:.5em .4em;border-bottom:1px solid var(--line);text-align:right;}
+th:first-child,td:first-child{text-align:left;}
+th{font-size:.85em;color:var(--ink-2);font-weight:600;border-bottom:1.5px solid #b9b9be;}
+td.g{color:var(--blue);font-weight:700;}
+/* 表内の見出し行（知識／自律作業の区切り） */
+tr.grp td{
+  font-size:.85em;font-weight:700;color:var(--ink-2);
+  padding-top:.95em;border-bottom:1px solid var(--line);text-align:left;
+}
+tr.grp td .hint2{font-weight:600;}
+/* 英語の評価名だけでは伝わらないため、下に日本語の補足を添える */
+td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:400;line-height:1.3;margin-top:.15em;}
+.tag{
+  display:inline-block;border:1px solid var(--line);border-radius:99px;
+  padding:.3em .85em;font-size:clamp(12px,min(1.05vw,1.8vh),19px);color:var(--ink-2);margin:.18em .2em;
+}
+
+/* ---------- 動画 ---------- */
+.vid{
+  position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2e;
+}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.vid .hint{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  color:#8a8a90;font-size:clamp(12px,min(1.05vw,1.8vh),18px);line-height:1.9;text-align:center;padding:1em;
+}
+.vid .hint code{background:#1e1e22;color:#c9c9cf;padding:.15em .5em;border-radius:5px;font-size:.95em;}
+.caption{margin-top:.7em;font-size:clamp(14px,min(1.2vw,2.05vh),22px);line-height:1.55;}
+
+/* ---------- 制約セクション（トーン切替） ---------- */
+.warn{background:#17171a;color:#f5f5f7;}
+.warn h2{color:#fff;}
+.warn .kicker{color:#c8a24a;}
+.warn .card{background:#212126;border-color:#35353c;}
+.warn .card h3{color:#e8c979;}
+.warn .card p{color:#a1a1a6;}
+.warn .big-num,.warn .card p.big-num{color:#fff;}
+.warn .unit{color:#8a8a90;}
+.warn .foot{color:#75757c;}
+.warn .lead{color:#c7c7cc;}
+
+/* ---------- 予測セクション（意図的に未完成な見た目） ---------- */
+.fc .card.dash{border:2px dashed #b0b0b6;background:#fafafa;box-shadow:none;}
+.fc .card.dash h3{color:var(--ink-2);}
+.badge{
+  display:inline-block;background:#6e6e73;color:#fff;border-radius:7px;
+  padding:.24em .9em;font-size:clamp(12px,min(1.05vw,1.8vh),19px);font-weight:700;letter-spacing:.1em;
+  margin-bottom:.9em;
+}
+/* 62.7% と 99.9% の測り方の違いを説明する注記 */
+.numnote{
+  border:1px solid var(--line);border-radius:12px;background:var(--bg-2);
+  padding:clamp(9px,min(1.05vw,1.8vh),16px) clamp(12px,1.4vw,20px);
+  margin-top:clamp(7px,1.1vh,13px);
+}
+.numnote p{margin:0;font-size:clamp(12px,min(1.08vw,1.85vh),19px);line-height:1.7;color:var(--ink-2);}
+.numnote strong{color:var(--ink);}
+.numnote .k{color:var(--blue);font-weight:700;}
+
+/* 「予測ではなく事実」の枠。年月を左に揃えて並べ、進み方の速さを見せる */
+.factbox p{color:var(--ink);margin-top:.45em;}
+.factbox p:first-child{margin-top:0;}
+.factbox .when{color:var(--blue);font-weight:700;margin-right:.4em;}
+.factbox .cav{color:var(--ink-2);font-size:.9em;margin-top:.7em;line-height:1.6;}
+
+/* 締めの黒帯（冒頭の黒画面と呼応させる） */
+.closer{
+  background:#17171a;color:#fff;border-radius:14px;text-align:center;
+  padding:clamp(12px,min(1.5vw,2.6vh),24px) 1.2em;margin-top:clamp(12px,1.6vh,22px);
+}
+.closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(18px,min(2.05vw,3.5vh),36px);}
+/* 締めは「変わらなかった側」と「変わった側」を対比させる */
+.closer .c1{font-size:clamp(13px,min(1.18vw,2vh),21px);color:#a1a1a6;font-weight:600;}
+.closer .c2{font-size:clamp(17px,min(1.85vw,3.15vh),32px);margin-top:.35em;}
+.closer .c3{font-size:clamp(15px,min(1.58vw,2.7vh),28px);margin-top:.6em;color:#c7c7cc;}
+.closer .num{font-size:.72em;font-weight:600;color:#8a8a90;margin-left:.4em;}
+
+/* ---------- 進行ドット ---------- */
+.dots{
+  position:fixed;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:11px;z-index:50;
+}
+.dots i{
+  width:7px;height:7px;border-radius:50%;background:#c7c7cc;display:block;
+  transition:.35s;cursor:pointer;
+}
+.dots i.on{background:var(--blue);transform:scale(1.55);}
+.dots.ondark i{background:#4a4a51;}
+.dots.ondark i.on{background:#fff;}
+
+/* ---------- 発表者ノート（既定OFF / Nキー） ---------- */
+#notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+  background:rgba(12,12,14,.95);color:#e8e8ed;padding:18px 26px;
+  font-size:15px;line-height:1.75;max-height:38vh;overflow:auto;
+  border-top:2px solid var(--blue);
+}
+#notes.show{display:block;}
+#notes b{color:#7ab5f0;}
+#notes .qa{display:block;margin-top:.7em;padding-top:.6em;border-top:1px solid #3a3a42;color:#9a9aa2;font-size:.93em;}
+/* 操作ヒントは投影中に映り込まないよう数秒で消す（マウスを動かすと再表示） */
+.helpkey{
+  position:fixed;left:16px;bottom:14px;z-index:55;color:#b8b8be;font-size:11.5px;
+  letter-spacing:.04em;transition:opacity .8s;pointer-events:none;
+}
+.helpkey.hide{opacity:0;}
+
+/* ---------- 印刷（PDFバックアップ用） ---------- */
+@media print{
+  body{overflow:visible;scroll-snap-type:none;}
+  section{height:auto;min-height:0;page-break-after:always;padding:26px 30px;}
+  .scrollhint,.dots,#notes,.helpkey{display:none!important;}
+  .hero,.warn{background:#fff!important;color:#000!important;}
+  .hero .huge,.hero .q,.warn h2,.warn .big-num{color:#000!important;}
+  .hero .sub,.hero .ctx,.warn .card p,.warn .lead{color:#444!important;}
+  .warn .card{background:#fff!important;border-color:#999!important;}
+  .closer{background:#fff!important;color:#000!important;border:1.5px solid #999;}
+  .closer p{color:#000!important;}
+  .fill{width:var(--w)!important;transition:none!important;}
+  .funnel-band,.funnel-arrow{opacity:1!important;transform:none!important;transition:none!important;}
+}
+@media (max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .bar{grid-template-columns:110px 1fr 58px;}
+}
+
+/* =========================================================
+   ここから下はエンジニア版で追加した分。
+   Harness の4分類（渡す／触らせる／確かめて直す／許す範囲）に
+   4色を割り当て、6枚目と8枚目で同じ色を使い回して
+   「同じ話をしている」ことを視覚的に繋いでいる。
+   ========================================================= */
+.hx1{--acc:#0066cc;} .hx2{--acc:#00875a;} .hx3{--acc:#b5540a;} .hx4{--acc:#6b3fa0;}
+
+/* 5枚目：同じモデルの2つの数字を正面から並べる */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:clamp(8px,1.8vw,30px);margin:.5em 0 .2em;}
+.vs .n{
+  font-size:clamp(34px,min(5.4vw,9.2vh),96px);font-weight:700;
+  letter-spacing:-.045em;line-height:1;margin:0;font-variant-numeric:tabular-nums;
+}
+.vs .cond{
+  display:block;margin-top:.7em;font-weight:600;color:var(--ink-2);line-height:1.5;
+  font-size:clamp(11px,min(1.05vw,1.8vh),19px);
+}
+.vs .mid{font-size:clamp(15px,min(1.5vw,2.55vh),26px);color:#b0b0b6;font-weight:700;padding-top:.6em;}
+.ask{
+  text-align:center;font-weight:700;color:var(--ink);line-height:1.45;
+  font-size:clamp(16px,min(1.72vw,2.92vh),30px);margin:.75em 0 0;
+}
+
+/* 4枚目：2つの経路を枠なしで対置する。
+   枠付きの比較表にすると、上の動画2本のキャプションに見えるし、
+   小さい箇条書きが並ぶとこの資料の作り（大きい文字・少ない枠）が壊れる。
+   詳細はすべて発表者ノートへ逃がしてある。 */
+.pair{display:flex;align-items:flex-start;justify-content:center;gap:clamp(12px,2.4vw,44px);margin:.85em 0 0;flex-wrap:wrap;}
+.pair .pl{font-weight:700;line-height:1.3;text-align:center;font-size:clamp(16px,min(1.72vw,2.92vh),31px);}
+.pair .mech{color:var(--blue);}
+.pair .gui{color:#6b3fa0;}
+.pair .pl em{display:block;font-style:normal;font-weight:600;color:var(--ink-2);
+  font-size:.52em;margin-top:.35em;letter-spacing:.02em;}
+.pair .pv{color:#c7c7cc;font-weight:700;font-size:clamp(15px,1.6vw,28px);line-height:1.3;}
+
+/* 5枚目：条件の違いを枠なしの2行で見せる */
+.cmp{margin:.9em auto 0;max-width:60em;}
+.cmp .r{display:grid;grid-template-columns:minmax(88px,9vw) 1fr;gap:clamp(10px,1.4vw,24px);
+  align-items:baseline;padding:.42em 0;font-size:clamp(13px,min(1.35vw,2.3vh),25px);line-height:1.5;}
+.cmp .r+.r{border-top:1px solid var(--line);}
+.cmp .r b{color:var(--ink-2);font-size:.8em;font-weight:700;text-align:right;letter-spacing:.04em;}
+.cmp .r span{color:var(--ink);font-weight:700;}
+
+/* 6枚目：4つの層を枠なしで並べる（上に色の罫だけ） */
+.layers{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,34px);margin-top:1.1em;}
+.layers .ly{border-top:4px solid var(--acc);padding-top:.65em;}
+.layers .ly h3{margin:0 0 .35em;color:var(--acc);font-weight:700;
+  font-size:clamp(16px,min(1.62vw,2.75vh),29px);}
+.layers .ly p{margin:0;color:var(--ink-2);line-height:1.6;
+  font-size:clamp(12px,min(1.2vw,2.05vh),22px);}
+.layers .ly .en2{display:block;margin-top:.45em;color:#a8a8ae;font-weight:600;letter-spacing:.02em;
+  font-size:clamp(10px,min(.95vw,1.62vh),17px);}
+
+/* 参考スライド：Astra 自身の説明を引用として大きく見せる */
+.quote{margin:0;color:var(--ink);font-weight:700;line-height:1.7;
+  font-size:clamp(14px,min(1.42vw,2.42vh),26px);}
+.quote .mk2{color:var(--blue);}
+.quote .src{display:block;margin-top:.8em;padding-top:.6em;border-top:1px solid var(--line);
+  font-weight:600;color:var(--ink-2);font-size:.74em;line-height:1.6;}
+.playcue{margin:.85em 0 .3em;text-align:center;font-weight:700;color:var(--blue);
+  font-size:clamp(13px,min(1.28vw,2.18vh),23px);letter-spacing:.02em;}
+audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
+
+/* 追加分の印刷・狭幅対応（既存の @media より後ろに置いて上書きする） */
+@media print{
+  .layers .ly{break-inside:avoid;}
+}
+@media (max-width:900px){
+  .vs{grid-template-columns:1fr;}
+  .vs .mid{display:none;}
+  .layers{grid-template-columns:1fr 1fr;}
+  .pair{gap:14px;}
+}
+
+/* 8枚目のチェックリストで4分類の色を再利用する */
+.ck1{color:#0066cc;} .ck2{color:#00875a;} .ck3{color:#b5540a;} .ck4{color:#6b3fa0;}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. 導入 ＋ 結論の数字 ============ -->
+<section id="s1" class="hero" data-note="<b>【約40秒】</b>GPT-6 Astra の話をします。OpenAI が今年9月に公開した最新モデルです。一言で申し上げると、『AIにはまだ無理』と思われていたことが、かなり減りました。象徴的なのがこの数字で、ある能力テストが3月にほぼ0%、9月に62.7%。5か月です。<br>今日は、この数字が<b>何のテストなのか</b>、<b>実際のソフトで何ができるようになったのか</b>、そして<b>この数字をどう読むべきか</b>を20分でご説明します。エンジニア向けなので、途中で技術的な読み方の話も挟みます。">
+  <div class="wrap center">
+    <p class="q">「GPT-6 Astra って、結局どうなの？」</p>
+    <p class="huge tight">0.3%<span class="arrowbig">→</span>62.7%</p>
+    <p class="sub">わずか5か月で、<span style="color:#5aa9f5;font-weight:700">「AIにはまだ無理」がかなり減った</span></p>
+    <p class="ctx">
+      GPT-6 Astra ／ OpenAI が 2026年9月に公開した最新モデル<br>
+      数字は ARC-AGI-3（人間なら100%解けるよう設計された課題）での到達度　2026年3月 → 9月
+    </p>
+  </div>
+  <div class="scrollhint">↓ &nbsp; SCROLL</div>
+</section>
+
+<!-- ============ 2. 何が伸びたのか ============ -->
+<section id="s2" data-note="<b>【約70秒】</b>何が伸びたのか、です。左の表、上段の知識・推論系は94.6%が96.0%で+1.4ポイント。もともと頭打ちで、チャットで数問投げても差は分かりません。ところが下段、<b>自分で環境を理解して長く作業を進める課題</b>は、20から55ポイント動いています。伸びている軸が変わりました。<br>右が推移です。3月は各社1%未満、7月に7.8%、7月末に30.2%、9月2日の Astra で62.7%。5か月でここまで来ています。<br>なお、この62.7%には<b>続きがあります</b>。あとで戻ってきます。<br><span class=qa>── ここから下は読み上げません（質疑用） ── ARC-AGI-3 は非公開の問題セットでの測定。ここに並べた数字はすべて各社を同じ条件に揃えた標準ハーネスでの測定で、条件は揃っています。別条件の数字については5枚目で扱います。</span>">
+  <div class="wrap">
+    <p class="kicker">何が伸びたのか</p>
+    <h2>伸びたのは「知識」ではなく<br><span class="pop">「自分で作業を進める力」</span></h2>
+    <div class="grid2" style="margin-top:1.2em">
+      <div class="card">
+        <table>
+          <tr><th>評価</th><th>Sol<small>前モデル</small></th><th>Astra<small>今回</small></th><th>差</th></tr>
+          <tr class="grp"><td colspan="4">知識・推論　<span class="hint2" style="color:var(--ink-2)">― ほぼ頭打ち</span></td></tr>
+          <tr><td>GPQA Diamond<small>大学院レベルの科学・推論問題</small></td><td>94.6%</td><td>96.0%</td><td class="g">+1.4</td></tr>
+          <tr class="grp"><td colspan="4" style="color:var(--blue)">自律作業　<span class="hint2">― 急伸</span></td></tr>
+          <tr><td>AutomationBench<small>実務作業をどこまでやり切れるか</small></td><td>18.1%</td><td>41.4%</td><td class="g">+23.3</td></tr>
+          <tr><td>Terminal-Bench 4.0<small>PC上の作業をやり切れるか</small></td><td>37.3%</td><td>57.7%</td><td class="g">+20.4</td></tr>
+          <tr><td>ARC-AGI-3<small>説明書なしの初見課題（次ページ）</small></td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
+        </table>
+        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
+      </div>
+      <div class="card" style="border-color:var(--blue);border-width:2px;display:flex;flex-direction:column;justify-content:center">
+        <h3 class="pop">ARC-AGI-3 の5か月</h3>
+        <div class="bars compact" style="margin-top:.4em">
+          <div class="bar"><div class="nm">2026 / 3<small>公開時 各社</small></div><div class="track"><div class="fill nil" style="--w:0.4%"></div></div><div class="vl">〜0.4%</div></div>
+          <div class="bar"><div class="nm">7 / 9<small>GPT-5.6 Sol</small></div><div class="track"><div class="fill" style="--w:7.8%"></div></div><div class="vl">7.8%</div></div>
+          <div class="bar"><div class="nm">7 / 24<small>Claude Opus 5</small></div><div class="track"><div class="fill" style="--w:30.2%"></div></div><div class="vl">30.2%</div></div>
+          <div class="bar hl"><div class="nm">9 / 2<small>GPT-6 Astra</small></div><div class="track"><div class="fill key" style="--w:62.7%"></div></div><div class="vl">62.7%</div></div>
+          <div class="bar" style="margin-top:.2em"><div class="nm" style="font-weight:700">人間</div><div class="track"><div class="fill" style="--w:100%;background:#c9c9cf"></div></div><div class="vl">100%</div></div>
+        </div>
+        <p style="margin-top:.9em">いずれも<strong style="color:var(--ink)">各社を同じ条件に揃えた</strong>標準ハーネスでの測定。<strong style="color:var(--ink)">この62.7%には続きがある（5枚目）。</strong></p>
+      </div>
+    </div>
+    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。Source: OpenAI / ARC Prize Foundation</p>
+  </div>
+</section>
+
+<!-- ============ 3. ARC-AGI-3 とは ============ -->
+<section id="s3" class="alt" data-note="<b>【約70秒】</b>その ARC-AGI-3 とは、説明書を渡さない試験です。ルールもゴールも操作方法も教えません。左が実際の画面で、誰でもブラウザで遊べます。白い十字がプレイヤーらしい、とは見えますが、何をすれば勝ちなのかは書かれていない。<br>エンジニア向けに、解き方を強調しておきます。<b>一発で正解を生成しているわけではありません。</b>触る、結果を見る、仮説を変える、また触る。このループを何十手も回して、初めて解けます。つまり測っているのは知識量ではなく、<b>環境と何度も往復しながら作業を進める能力</b>です。<br>仕事も同じで、問題が起きたときに最初から説明書が付いているとは限りません。<br><span class=qa>── ここから下は読み上げません（質疑用） ── 実際のゲームは arcprize.org で公開されており（Task ls20）、その場で触ってもらうこともできます。</span>">
+  <div class="wrap">
+    <p class="kicker">ARC-AGI-3 とは</p>
+    <h2>説明書を、渡さない試験</h2>
+    <div class="grid2" style="margin-top:1em;align-items:center">
+      <div class="center">
+        <img src="assets/arc_game.png" alt="ARC-AGI-3 のゲーム画面" style="max-width:72%;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)">
+        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。誰でもブラウザで遊べます。</p>
+      </div>
+      <div>
+        <div class="center" style="margin-bottom:1em">
+          <span class="tag">ルール　教えない</span>
+          <span class="tag">ゴール　教えない</span>
+          <span class="tag">操作方法　教えない</span>
+        </div>
+        <p class="center" style="font-size:clamp(17px,min(1.72vw,2.92vh),30px);color:var(--ink);font-weight:700;line-height:1.55;margin:0">
+          探索 → 仕組みを理解<br>→ 目標を見つける → 計画して実行
+        </p>
+        <p class="lead center" style="margin-top:1em">
+          正解を知っているかではなく、初めての環境で<br>「何をすべきか」を自分で組み立てられるか。
+        </p>
+        <div class="card" style="margin-top:1.3em;border-color:var(--blue);border-width:2px;background:#fff">
+          <p style="color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.35vw,2.3vh),25px);line-height:1.6;margin:0">
+            <span class="pop">一発で正解を出す試験ではない。</span><br>
+            触る → 結果を見る → 仮説を変える → また触る。<br>
+            このループを何十手も回して、初めて解ける。
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="foot center">測っているのは知識量ではなく、環境と何度も往復しながら作業を進める能力。Source: ARC Prize Foundation</p>
+  </div>
+</section>
+
+<!-- ============ 4. 実際のソフトでも同じことが起きている ============ -->
+<section id="s4" data-note="<b>【約2分10秒】</b>ゲームの話だけなら研究成果で終わりますが、同じことが実際のソフトで起きています。前提を一つ。AIが人間と同じようにPCの画面を見ながらマウスとキーボードで操作する、これ自体は約2年前からある機能で、Astra が初めてではありません。下に小さく書いてある数字がその頃の水準で、<b>PC操作でひとまとまりの作業を最後までやり切れるかを見る評価です。同じ課題を人間がやると約72%のところ、当時のAIは22%でした。</b>手順を細かく指示しないと途中で失敗し、実用には遠かった。<b>今回上がったのは、マウスとキーボードを動かせることではなく、何をすべきかを自分で理解して段取りを組む力です。</b>ここが一番誤解されやすい点です。<br>左はワープロソフトで、ベタ打ちの法務文書の見出しを一つずつ整えていきます。右は絵画ソフトの Krita で、指示だけで白紙から描き上げます。28倍速ですが過程は本物です。<br>エンジニア向けに一つ補足します。<b>これは『API が不要になった』という話ではありません。</b>AI が既存システムに手を出す経路は大きく2種類です。API や CLI は型と契約があり、失敗も status code や exit code で明示される。安くて速くて検証しやすい。ただし、無いところには無い。GUI は契約がないので画面を解釈するしかなく、失敗も自分で気づくしかない。高くて遅くて検証しにくい。ただし、人が操作できるものには全部届く。<b>いま見た2本は、後者の例です。</b>優劣ではなくトレードオフで、契約のある手段があるならそちらを使います。<b>GUI の意味は、それが存在しない領域まで届くことです。</b>『API が無いから自動化できない』が、決定的な理由ではなくなりました。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1) 左のソフトは正確には LibreOffice Writer で、Word と同種の無料のワープロソフトです。 (2) どちらも OpenAI 公式の画面録画で、演出ではありません。 (3) Astra はマウス操作だけでなくコードも併用します。『既存のソフトを道具として使える』というのが正確な表現です。 (4)『MCP はどちらに入るのか』→ どちらでもなく、<b>別の軸</b>です。MCP は API や CLI をモデルに渡すための手段で、MCP サーバの中身は大抵 API のラッパーです。『API と MCP どちらが上か』は一般には決まりません。型付きでスコープを絞れる分、よく設計された MCP は生の API より扱いやすいこともあります。CLI との上下も同様で、CLI には exit code という強い失敗の契約があり、--json があれば出力も構造化されます。<b>一直線の序列は引けない、とお答えするのが正確です。</b></span>">
+  <div class="wrap">
+    <p class="kicker">実際のソフトで</p>
+    <h2>同じことが、すでに起きている</h2>
+    <p class="lead center" style="margin:.3em auto .6em;max-width:64em;line-height:1.55">
+      画面を見てマウスとキーボードを操作する機能自体は、約2年前からある。<br>
+      <strong style="color:var(--ink)">今回上がったのは操作できることではなく、</strong><span class="pop" style="font-weight:700">「何をすべきかを理解して、段取りを組む」力</span>。
+    </p>
+    <div class="grid2">
+      <div>
+        <div class="vid" style="aspect-ratio:16/9">
+          <div class="hint">動画をここに<br><code>assets/document.mp4</code><br><span style="font-size:.9em">OpenAI公式 Astra ページ／16秒</span></div>
+          <video src="assets/document.mp4" muted loop playsinline preload="auto"></video>
+        </div>
+        <p class="caption center" style="margin-top:.45em"><strong>ワープロソフト</strong>を操作し、法務文書の見出し・体裁を順に整えていく</p>
+      </div>
+      <div>
+        <div class="vid" style="aspect-ratio:16/9">
+          <div class="hint">動画をここに<br><code>assets/krita.mp4</code><br><span style="font-size:.9em">OpenAI公式YouTube／操作過程を28倍速で圧縮</span></div>
+          <video src="assets/krita.mp4" muted loop playsinline preload="auto"></video>
+        </div>
+        <p class="caption center" style="margin-top:.45em">指示だけで絵画ソフト <strong>Krita</strong> を操作し、白紙から描き上げる</p>
+      </div>
+    </div>
+    <div class="pair">
+      <span class="pl mech">API ／ CLI ／ SDK<em>契約がある。無いところには、無い</em></span>
+      <span class="pv">⇔</span>
+      <span class="pl gui">GUI（Computer Use）<em>契約がない。人が触れるものには、全部届く</em></span>
+    </div>
+    <p class="ask" style="margin-top:.5em">いま見た2本は、いずれも <span style="color:#6b3fa0">GUI</span> の例。<span class="pop">GUI の意味は、API も CLI も無い領域まで届くこと。</span></p>
+    <p class="foot center">2年前の水準：PC操作でひとまとまりの作業を最後までやり切れるかの評価で、<strong style="color:var(--ink)">同じ課題を人間がやると約 72%、当時のAIは 22%</strong>。手順を細かく指示しないと完遂できなかった。</p>
+  </div>
+</section>
+
+<!-- ============ 5. 同じ Astra に、数字が2つある ============ -->
+<section id="s5" class="alt" data-note="<b>【約2分】</b>ここで、2枚目で保留にした話に戻ります。数字は引き続き ARC-AGI-3 の到達度、3枚目でお見せした説明書を渡さない試験です。<b>同じ Astra、同じ試験で、数字が2つあります。</b>62.7% と 99.9%。どちらも本当で、測り方が2通りあります。62.7% は各社を同じ条件に揃えたときの数字。99.9% は OpenAI 自身の実行環境で、Astra の力を最大限引き出したときの数字です。<b>公開されている違いの一つが、状態の持ち方です。</b>共通条件では1手ごとに考えた内容が捨てられて、自分が残したメモから状況を組み立て直す。最大条件では、考えた内容を保持したまま続けられる。<b>1手ごとに担当者が交代するか、通しで同じ人がやるかの違い</b>とお考えください。しかも解いた手数は、人間の中央値より平均51.7%少ない。<br>正確に申し上げておきます。<b>この 62.7 と 99.9 の差は、要素を一つずつ変えて測った実験ではありません。</b>2つの条件は複数の点が違いますし、内訳は公開されていない。ですので『何を変えたら何ポイント上がる』とは言えません。<b>言えるのは、同じモデルでも、どう動かすかでここまで結果が変わりうる、ということです。</b>次のページで、この差を少し分解します。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『なぜ2つ併記するのか』→ 99.9%の条件は他社に同じものを与えられないため、横並び比較には使えません。ARC Prize は今後も両方を条件名付きで併記する方針です。 (2)『37.2ptの内訳は』→ 非公開です。だからこの場では因果の主張はしません。 (3) 下の51.7%も、99.9% を出した条件での測定です。</span>">
+  <div class="wrap">
+    <p class="kicker center">ARC-AGI-3 の到達度　―　2枚目の「続き」</p>
+    <h2 class="center">同じ Astra、同じ試験。<span class="pop">数字が2つある</span></h2>
+    <div class="vs">
+      <div class="center">
+        <p class="n">62.7%</p>
+        <span class="cond">各社共通条件（標準ハーネス）<br>横並びで比較できる数字</span>
+      </div>
+      <div class="mid">vs</div>
+      <div class="center">
+        <p class="n pop">99.9%</p>
+        <span class="cond">Provider Adapter 条件<br>OpenAI 自身の実行環境</span>
+      </div>
+    </div>
+    <div class="cmp">
+      <div class="r"><b>共通条件</b><span>1手ごとに、考えた内容が捨てられる</span></div>
+      <div class="r"><b>最大条件</b><span>考えた内容を保持したまま、続けられる</span></div>
+    </div>
+    <p class="ask" style="margin-top:.7em">1手ごとに担当者が交代するか、通しで同じ人がやるか。<br><span class="pop">その違いで、62.7% と 99.9% になる。</span></p>
+    <p class="foot center">解いた手数も、人間の中央値より平均 <strong style="color:var(--ink)">51.7% 少ない</strong>（99.9% を出した条件での測定）。<br>62.7 と 99.9 の差は、要素を一つずつ変えて測った実験ではない（条件が複数異なり、内訳は非公開）。Source: ARC Prize Foundation</p>
+  </div>
+</section>
+
+<!-- ============ 6. 差の読み方（Harness） ============ -->
+<section id="s6" data-note="<b>【約2分】</b>この差を読むための言葉を一つだけ入れます。以前この場で『2025年は Agent、2026年は Harness』という話をしましたが、その Harness です。<b>モデルが仕事をやり切るために、その周囲に用意する実行環境と制御機構の総体</b>、くらいの意味で今日は使います。中身は大きく4つです。<br><b>渡す。</b>何を知った状態で始めるか。さっきの62.7と99.9の差は、ほぼここでした。<b>触らせる。</b>何に手を出せるか。前のページの GUI の話がここです。<b>確かめて直す。</b>結果が正しいかを誰が判定し、間違っていたらどう戻すか。次のページで出てきます。<b>許す範囲を決める。</b>どこまで自動でやってよいか、記録は残るか。<br><b>これは Astra だけの話ではありません。</b>皆さんが毎日使っている Claude Code や Codex が、同じモデルを素で叩くより仕事ができるように感じるのも、この4つが組んであるからです。コードを読んで、shell を叩いて、テストを走らせて、落ちたらログを読んで直して、危ないコマンドは確認を挟む。<b>つまり我々が体感している性能も、モデル単体の性能ではありません。</b>この4つは、このあとの2枚でもそのまま使います。<br><span class=qa>── ここから下は読み上げません（質疑用） ── Harness は人によって指す範囲が違う言葉で、agent scaffolding、agent runtime とも呼ばれます。テストハーネス（対象を動かして結果を確かめる足場）と同じ発想です。呼び方より、この4つを誰が持つかを決めることが重要、というのが今日の立場です。</span>">
+  <div class="wrap">
+    <p class="kicker">差の読み方　―　以前お話しした「2025 Agent → 2026 Harness」の話</p>
+    <h2>モデルの外側に、<span class="pop">結果を左右する層</span>がある</h2>
+    <p class="lead center" style="margin:.5em auto 0;max-width:66em">
+      <strong style="color:var(--ink)">Harness ＝ モデルが仕事をやり切るために、その周囲に用意する実行環境と制御機構の総体</strong>
+    </p>
+    <div class="layers">
+      <div class="ly hx1">
+        <h3>1　渡す</h3>
+        <p>何を知った状態で始めるか<span class="en2">Context ／ State ／ Memory</span></p>
+      </div>
+      <div class="ly hx2">
+        <h3>2　触らせる</h3>
+        <p>何に手を出せるか<span class="en2">Tools ／ Environment</span></p>
+      </div>
+      <div class="ly hx3">
+        <h3>3　確かめて直す</h3>
+        <p>正しいか。失敗したらどう戻すか<span class="en2">Verification ／ Retry</span></p>
+      </div>
+      <div class="ly hx4">
+        <h3>4　許す範囲を決める</h3>
+        <p>どこまで。記録は残るか<span class="en2">Permission ／ Audit</span></p>
+      </div>
+    </div>
+    <p class="ask" style="margin-top:1.2em">
+      前のページの差は、ほぼ <span style="color:#0066cc">1</span> の話。<br>
+      Claude Code が素のチャットより「仕事ができる」のも、<span class="pop">この4つが組んであるから</span>。
+    </p>
+    <p class="foot center">つまり我々が体感している性能も、モデル単体の性能ではない。この4つは、このあとの2枚でもそのまま使う。</p>
+  </div>
+</section>
+
+<!-- ============ 7. 現時点の制約 ============ -->
+<section id="s7" class="warn" data-note="<b>【約1分50秒】</b>一方で、現時点の制約も申し上げます。3つです。<br>1つ目、コスト。標準条件で評価を丸ごと一回走らせると約400万円です。文書を一本作らせるような日常利用の単価ではありません。ただしエンジニア向けに面白い点があって、<b>99.9%を出した条件は約1.9万ドル、約280万円です。スコアが高い方が安い。</b>少ない手数で解けるぶん、呼び出しもトークンも減るからで、実測で速度が約3.7倍、トークン量は約半分。<b>さっきの4分類は、性能の話であると同時に単価の話でもあります。</b><br>2つ目、成果物の検証。体裁は綺麗に仕上がりますが、中身が正しいかは別です。Astra が設計した電子回路の基板も、専門家から安全性の検証が別途必要だと指摘されています。<b>4分類の『確かめて直す』を誰が持つのかが決まっていないと、賢さに関係なく実務では使えません。</b><br>3つ目、裏返せば約4割は解けていません。<br><span class=qa>── ここから下は読み上げません（質疑用） ── 400万円・1.9万ドルはいずれも評価テストを丸ごと一回走らせた費用で、日常利用の単価ではありません。ただし1.9万ドルでも約280万円ですので、難しい課題を任せきりにするほど費用が跳ね上がるという構図自体は変わりません。</span>">
+  <div class="wrap">
+    <p class="kicker">現時点の制約</p>
+    <h2>能力の話と、<span style="color:#e8c979">任せてよいかの話</span>は別</h2>
+    <div class="grid3" style="margin-top:1.1em">
+      <div class="card">
+        <h3>コスト ― 逆転が起きている</h3>
+        <p>標準条件で評価を1回 ＝ 約 <strong style="color:#fff">400万円</strong></p>
+        <p style="margin-top:.45em;color:#e8c979;font-weight:700">ところが、99.9% を出した条件は</p>
+        <p class="big-num" style="margin-top:.15em">約1.9<span class="unit">万ドル</span></p>
+        <p style="margin-top:.45em">約280万円。<strong style="color:#e8c979">スコアが高い方が安い。</strong></p>
+        <p style="margin-top:.6em;border-top:1px solid #35353c;padding-top:.6em">少ない手数で解けるぶん、呼び出しもトークンも減る。実測で<strong style="color:#fff">速度 約3.7倍・トークン量 約半分</strong>。</p>
+      </div>
+      <div class="card">
+        <h3>成果物の検証</h3>
+        <p>体裁は綺麗に仕上がるが、中身が正しいかは別。Astra が設計した電子回路の基板も、専門家から<strong style="color:#fff">安全性の検証が別途必要</strong>と指摘されている。</p>
+        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">前ページの <strong style="color:#e8c979">「確かめて直す」</strong> が決まっていないと、賢さに関係なく実務では使えない。</p>
+      </div>
+      <div class="card">
+        <h3>未解決</h3>
+        <p class="big-num" style="margin-top:.2em">37.3<span class="unit">%</span></p>
+        <p style="margin-top:.6em">人間なら100%解ける課題で、標準条件の Astra がまだ解けていない割合（到達度 62.7%）。</p>
+        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">ゲームは触れば反応が返るから成り立つ。社内の規程も法令も、画面を触っても出てこない。</p>
+      </div>
+    </div>
+    <p class="ask" style="color:#fff">
+      <span style="color:#e8c979">自分で段取りを組む力があること</span>と、<span style="color:#e8c979">何を守るべきかを知っていること</span>は別。<br>
+      <span style="font-size:.82em;color:#c7c7cc;font-weight:600">前者は Astra が持ち始めた。後者は、こちらが渡すしかない。</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 8. 当社にとっての意味 ============ -->
+<section id="s8" class="alt" data-note="<b>【約1分50秒】</b>では当社にとって何が変わるのか。これまで自動化を検討するとき、最初に見ていたのは、APIがあるか、RPAが組めるか、でした。つまり<b>『AIが使える形』に仕事の側を変える必要があった。</b>ところが人間向けの既存ソフトを AI 自身が使えるなら、この前提が変わります。Excel、PowerPoint、社内Webシステム、専門端末。人が画面を見て操作しているものまで、検討対象に入ります。<br>ここからがエンジニアの話です。<b>最初の問いが変わります。</b>これまでは『このシステム、APIあるか？』でした。これからは『<b>この仕事を任せるには、何が足りないか？</b>』です。<br>足りないものは、たいてい下の4つのどれかです。渡すものが無いのか、触らせる手段が無いのか、確かめる方法が無いのか、許す範囲が決まっていないのか。<b>さっきの4分類が、そのまま設計時のチェックリストになります。</b>ここが今日いちばん持ち帰っていただきたい部分です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── API＝外部のシステムから呼び出すための接続口。RPA＝人の画面操作を記録して自動再生する仕組み。なお『APIが不要になった』という意味ではありません。4枚目でお話ししたとおり、契約のある手段があるならそちらが速く安く検証しやすい、という順序は変わりません。</span>">
+  <div class="wrap">
+    <p class="kicker">当社にとっての意味</p>
+    <h2>最初の問いが変わる</h2>
+    <div class="grid2" style="margin-top:.8em">
+      <div class="card">
+        <h3 style="color:var(--ink-2)">これまで　― 絞り込まれる</h3>
+        <div class="funnel">
+          <div class="funnel-band" style="background:#9aa1ab;width:100%;transition-delay:.05s">すべての業務</div>
+          <div class="funnel-arrow" style="transition-delay:.3s">↓ 人間が手順を分析</div>
+          <div class="funnel-band" style="background:#7f8794;width:76%;transition-delay:.35s">API を用意できる／RPA を組める<br>専用システムを作れる業務だけ</div>
+          <div class="funnel-arrow" style="transition-delay:.6s">↓</div>
+          <div class="funnel-band" style="background:#5b6472;width:50%;transition-delay:.65s">自動化</div>
+        </div>
+        <p style="margin-top:.8em;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.28vw,2.2vh),23px);border-top:1px solid var(--line);padding-top:.7em">
+          最初の問い　「このシステム、API あるか？」
+        </p>
+      </div>
+      <div class="card" style="border-color:var(--blue);border-width:2px">
+        <h3 class="pop">これから　― ほぼそのまま通る</h3>
+        <div class="funnel">
+          <div class="funnel-band" style="background:#8fb3e8;width:100%;transition-delay:.15s">すべての業務</div>
+          <div class="funnel-arrow" style="transition-delay:.4s">↓ AI が既存ソフトを理解して使う</div>
+          <div class="funnel-band" style="background:#4a84d1;width:94%;transition-delay:.45s">Excel・PowerPoint・社内Webシステム<br>専門端末・業務アプリ もそのまま</div>
+          <div class="funnel-arrow" style="transition-delay:.7s">↓</div>
+          <div class="funnel-band" style="background:var(--blue);width:90%;transition-delay:.75s">AI化の検討対象</div>
+        </div>
+        <p style="margin-top:.8em;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.28vw,2.2vh),23px);border-top:1px solid var(--line);padding-top:.7em">
+          最初の問い　<span class="pop">「この仕事を任せるには、何が足りないか？」</span>
+        </p>
+      </div>
+    </div>
+    <div class="numnote" style="border-color:var(--blue);background:#fff;margin-top:.8em">
+      <p style="text-align:center;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.32vw,2.25vh),24px)">
+        足りないものは、たいていこの4つのどれか　―　<span class="ck1">渡すもの</span>／<span class="ck2">触らせる手段</span>／<span class="ck3">確かめる方法</span>／<span class="ck4">許す範囲</span>
+      </p>
+    </div>
+    <p class="ask">「AIにできる業務探し」から<span class="pop">「この仕事も渡せないか」</span>へ</p>
+  </div>
+</section>
+
+<!-- ============ 9. この先に見えているもの ＋ 締め ============ -->
+<section id="s9" class="fc" data-note="<b>【約1分50秒】</b>最後に、この先です。上の3つは予測です。半導体の設計、AI研究、金融工学。以前なら、何を試すかは専門家自身が考える必要がありました。<br>下の枠は予測ではなく事実です。先月8月、まだ公開前だった Astra が数学の未解決問題10件で進展を出し、9月8日には、Astra の次の世代にあたる未公開モデルが、ミレニアム懸賞問題の一つで証明に到達しました。Astra が古いのではなく、世代交代がこの速さで進んでいるということです。ただし全面解決ではなく、査読もこれからです。<br>エンジニア向けに一点だけ付け加えると、<b>どちらも証明が正しいかを機械的に検証する仕組みにかけたうえで出しています。</b>ナビエ・ストークスの方は約1万体を並列で動かして88時間。<b>さっきの『確かめて直す』を回路に組み込んだから成立している、と読めます。</b><br>まとめます。チャットとしての賢さは、これまで通りの伸びです。1.4ポイント。数問試しても違いは分かりません。ところが、自分で作業を進める力は20から55ポイント伸びています。<b>つまり、AIに任せられる仕事が急に広がった。</b>これが本日いちばんお伝えしたかったことです。<br>そのうえで、同じ Astra でも62.7%と99.9%でした。<b>任せられるかどうかを決めるのは、モデルだけではありません。</b>以上です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『賞金は出たのか』→出ていません。一流数学誌に掲載後2年の検討を経て判断される規定で、現時点では未査読です。(2)『経緯に異論とは』→NYUの研究者らがほぼ同時期に近い手法の成果を公開しており、OpenAIが自分たちの研究を知った直後に動いたと問題視しています。OpenAI側は否定しており決着していないため、この場では踏み込まない方が安全です。(3)『AIが全部解いたのか』→違います。Clay問題の設定者本人が、理論的な土台は先行研究にあると述べています。</span>">
+  <div class="wrap">
+    <span class="badge">予測</span>
+    <h2>この先に見えているもの</h2>
+    <div class="grid3" style="margin-top:.8em">
+      <div class="card dash mini">
+        <h3>半導体設計</h3>
+        <p>設計書を渡して</p>
+        <p style="margin-top:.4em;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.25vw,2.15vh),23px);line-height:1.5">「性能・消費電力・面積を改善して」</p>
+      </div>
+      <div class="card dash mini">
+        <h3>AI研究</h3>
+        <p>論文と実装を渡して</p>
+        <p style="margin-top:.4em;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.25vw,2.15vh),23px);line-height:1.5">「ボトルネックを見つけて改善して」</p>
+      </div>
+      <div class="card dash mini">
+        <h3>金融工学</h3>
+        <p>未整理の問題を渡して</p>
+        <p style="margin-top:.4em;color:var(--ink);font-weight:700;font-size:clamp(14px,min(1.25vw,2.15vh),23px);line-height:1.5">「定式化して解法を探して」</p>
+      </div>
+    </div>
+    <div class="card factbox mini" style="margin-top:.75em;background:#fff">
+      <p><strong class="pop">こちらは予測ではなく事実。しかも1か月で段が上がっている</strong></p>
+      <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。<strong style="color:var(--blue)">証明が正しいかを機械的に検証する仕組み（Lean 4）</strong>にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
+      <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、<strong style="color:var(--blue)">約1万体のAIを並列で動かし</strong>、88時間かけて証明に到達。同じく機械検証済み。</p>
+      <p class="cav">※ 9月8日の結果はAstra本体ではなく、その次の世代によるもの。Astraが古いという意味ではなく、世代交代がこの速さで進んでいるということ。なお、ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけで、全面解決ではない。独立検証・査読もこれからで、先行研究者との経緯には異論も出ている。</p>
+    </div>
+    <div class="closer">
+      <p class="c1">チャットとしての賢さ　―　これまで通りの伸び<span class="num">＋1.4 ポイント</span></p>
+      <p class="c2">「自分で作業を進める力」が<span style="color:#5aa9f5">飛躍的に伸びた</span><span class="num">＋20〜55 ポイント</span></p>
+      <p class="c3">だから、<span style="color:#5aa9f5;font-weight:700">任せられる仕事が急に広がった</span></p>
+      <p class="c3" style="margin-top:.4em;font-size:clamp(12px,min(1.25vw,2.15vh),22px);color:#a1a1a6">ただし、同じ Astra でも 62.7% と 99.9%。<span style="color:#c7c7cc;font-weight:700">決めるのは、モデルだけではない。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. 参考：自分で試した（時間が余れば） ============ -->
+<section id="s10" data-note="<b>【参考・任意／約2分】</b>ここからは完全におまけです。時間が余ったらお見せします。昨夜、Astra に FL Studio を渡して短い曲を作らせてみました。作曲ソフトで、当然 AI 向けの API はありません。左が終わったところの画面です。チャンネルラックに3トラック、ミキサーにエフェクト、最後に書き出しダイアログまで開いています。13小節、32秒、96BPM。全部 GUI を操作させただけです。<b>実際に書き出された音がこれです。</b>（左のプレーヤーを再生）<br>面白かったのが右のやり取りです。ミキサーが開いたので、<b>知っていたのか、画面から推測したのかを聞いてみました。</b>答えがこれです。F9 というショートカットは<b>知識として持っていた</b>。画面から推測したわけではない。ただし<b>開いた後は実際の画面を確認して</b>、どこにエフェクトを足すか、どのつまみを触るかを選んでいる。<b>4枚目で申し上げた『何をすべきかを理解して段取りを組む』というのは、こういうことです。</b>事前に持っている知識と、画面を見ての判断の、両方が要る。6枚目の4分類でいうと、渡すものと触らせるものが噛み合って初めて動く、という話でもあります。<br>ついでに現実的な話も写っています。<b>この1ターンで2分41秒。</b>途中で利用制限にも達しています。実行は<b>フルアクセス</b>で許可しています。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1) 音は自動再生されません。左のプレーヤーを押して流してください。32秒です。投影前に音声の出力先だけ確認しておくこと（ブラウザのミュート、HDMI出力の切り替わりで無音になりやすい）。 (2)『作曲したのか』→ 言い過ぎです。13小節のループのスケッチで、音源もエフェクトも FL Studio 内蔵のものです。ここで見ていただきたいのは曲の出来ではなく、<b>API の無い作曲ソフトを、チャンネルラックからミキサー、書き出しダイアログまで一通り運転しきったこと</b>です。 (3) 書き出し自体は FL Studio のレンダリング機能で、音を生成しているのは FL Studio です。Astra がやったのは打ち込みと設定と操作です。</span>">
+  <div class="wrap">
+    <span class="badge" style="background:#6e6e73">参考 ／ 時間が余れば</span>
+    <p class="kicker">自分で試した</p>
+    <h2>API の無い作曲ソフトを、<span class="pop">一通り運転しきった</span></h2>
+    <div class="grid2" style="margin-top:.9em;align-items:start">
+      <div>
+        <img src="assets/flstudio_screen.png" alt="Astra が操作した FL Studio の画面" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 28px rgba(0,0,0,.16)">
+        <p class="caption center" style="margin-top:.5em">13小節・32秒・96BPM・3トラック。<strong>チャンネルラック → ミキサー（F9）→ エフェクト → 書き出し</strong>まで、GUI 操作だけで。</p>
+        <p class="playcue">▶　書き出された音声を再生（32秒）</p>
+        <audio controls preload="none" src="assets/evening_window.wav"></audio>
+        <p class="foot center" style="margin-top:.35em">1ターン <strong style="color:var(--ink)">2分41秒</strong>／途中で<strong style="color:var(--ink)">利用制限</strong>に到達／実行は<strong style="color:var(--ink)">フルアクセス</strong>で許可</p>
+      </div>
+      <div>
+        <p class="quote">
+          「Mixerを開く<span class="mk2">「F9」</span>は、FL Studio のショートカットとして<span class="mk2">知っていました</span>。画面から推測したわけではありません。<br>
+          開いた後は<span class="mk2">実際の画面を確認して</span>、エフェクトの追加先やつまみを選んで操作しています。」
+          <span class="src">―― 「Mixer の開き方って知ってたの？　それとも画面から推測した？」への回答</span>
+        </p>
+        <img src="assets/flstudio_chat.png" alt="Astra とのやり取り" style="width:100%;margin-top:.9em;border-radius:10px;border:1px solid var(--line)">
+      </div>
+    </div>
+    <p class="ask" style="margin-top:.7em">
+      <span class="pop">知識として持っていたもの</span>と、<span class="pop">画面を見て判断したもの</span>。<br>
+      <span style="font-size:.8em;font-weight:600;color:var(--ink-2)">4枚目の「何をすべきかを理解して、段取りを組む」は、実際にはこの2つが噛み合うこと。</span>
+    </p>
+  </div>
+</section>
+
+<div class="dots" id="dots"></div>
+<div id="notes"></div>
+<div class="helpkey">↑↓ / PageUp・PageDown で送る　　N：発表者ノート表示</div>
+
+<script>
+(function(){
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section'));
+  var dots = document.getElementById('dots');
+  var notes = document.getElementById('notes');
+  var cur = 0;
+
+  // 進行ドット
+  secs.forEach(function(s,i){
+    var d = document.createElement('i');
+    d.addEventListener('click', function(){ go(i); });
+    dots.appendChild(d);
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function paint(i){
+    dotEls.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+    var dark = secs[i].classList.contains('hero') || secs[i].classList.contains('warn');
+    dots.classList.toggle('ondark', dark);
+    notes.innerHTML = secs[i].getAttribute('data-note') || '';
+  }
+
+  function go(i){
+    i = Math.max(0, Math.min(secs.length-1, i));
+    secs[i].scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // 表示中セクションの検出＋アニメーション発火
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('in');
+      cur = secs.indexOf(e.target);
+      paint(cur);
+      // 動画は表示された時だけ再生（1スライドに複数動画がある場合も全部再生する）
+      e.target.querySelectorAll('video').forEach(function(v){
+        var p = v.play(); if(p && p.catch) p.catch(function(){});
+      });
+      // 大きい数字はカウントアップ（一度だけ）
+      e.target.querySelectorAll('[data-count-to]').forEach(function(el){
+        if(el.dataset.counted) return;
+        el.dataset.counted = '1';
+        var target = parseFloat(el.getAttribute('data-count-to'));
+        var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        var dur = 900, t0 = performance.now();
+        function step(t){
+          var p = Math.min(1, (t - t0) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(dec);
+          if(p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+  }, {threshold:0.55});
+  secs.forEach(function(s){ io.observe(s); });
+
+  // キー操作（投影中の誤爆を防ぐため最小限）
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(k==='ArrowDown'||k==='PageDown'||k===' '||k==='ArrowRight'){ e.preventDefault(); go(cur+1); }
+    else if(k==='ArrowUp'||k==='PageUp'||k==='ArrowLeft'){ e.preventDefault(); go(cur-1); }
+    else if(k==='Home'){ e.preventDefault(); go(0); }
+    else if(k==='End'){ e.preventDefault(); go(secs.length-1); }
+    else if(k==='n'||k==='N'){ notes.classList.toggle('show'); }
+  });
+
+  // 操作ヒントの自動フェード（投影中の映り込み防止）
+  var help = document.querySelector('.helpkey'), ht;
+  function nudge(){
+    help.classList.remove('hide');
+    clearTimeout(ht);
+    ht = setTimeout(function(){ help.classList.add('hide'); }, 5000);
+  }
+  document.addEventListener('mousemove', nudge);
+  nudge();
+
+  secs[0].classList.add('in');
+  paint(0);
+})();
+</script>
+</body>
+</html>
