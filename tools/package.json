@@ -1,0 +1,13 @@
+{
+  "name": "gpt6-astra-briefing-tools",
+  "private": true,
+  "type": "module",
+  "description": "exec_ai_briefing.html の目視検証・PDF書き出し用スクリプト",
+  "scripts": {
+    "shots": "node render_screenshots.mjs",
+    "pdf": "node export_pdf.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}

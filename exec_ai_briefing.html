@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI能力境界の変化 ― 役員向けブリーフィング</title>
+<style>
+/* =========================================================
+   完全オフライン。外部リソース参照ゼロ。
+   フォントはWindows/Mac標準搭載のもののみ。
+   投影前提のため文字サイズは vw と vh の小さい方に追従させ、
+   16:9 の短い画面でも1枚に収まるようにしている。
+   ========================================================= */
+:root{
+  --ink:#1d1d1f;
+  --ink-2:#6e6e73;
+  --line:#d2d2d7;
+  --bg:#ffffff;
+  --bg-2:#f5f5f7;
+  --blue:#0066cc;
+  --blue-soft:#b8d4f0;
+  --amber:#8a6d1f;
+  --amber-bg:#fdf9ef;
+  --amber-line:#d9b85c;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:"Yu Gothic Medium","Yu Gothic",YuGothic,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+}
+section{
+  height:100vh;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:4.5vh 5.5vw;
+  position:relative;
+  overflow:hidden;
+}
+.wrap{width:100%;max-width:1240px;}
+.center{text-align:center;}
+
+/* ---------- タイポ ---------- */
+h2{
+  font-size:clamp(24px,min(3vw,5.2vh),46px);
+  line-height:1.25;
+  letter-spacing:-0.02em;
+  margin:0 0 .5em;
+  font-weight:700;
+}
+.kicker{
+  font-size:clamp(12px,min(1vw,1.7vh),16px);
+  letter-spacing:0.18em;
+  color:var(--ink-2);
+  margin:0 0 1em;
+  font-weight:600;
+}
+.lead{font-size:clamp(14px,min(1.3vw,2.2vh),22px);line-height:1.65;color:var(--ink-2);margin:0;}
+.pop{color:var(--blue);}
+.tight{letter-spacing:-0.03em;}
+
+/* ---------- Hero ---------- */
+.hero{background:#000;color:#fff;}
+.hero .huge{
+  font-size:clamp(40px,min(8.6vw,15vh),132px);
+  font-weight:700;
+  letter-spacing:-0.045em;
+  line-height:1;
+  margin:0;
+  white-space:nowrap;
+}
+.hero .arrowbig{color:#5a5a5f;padding:0 .12em;}
+.hero .sub{
+  font-size:clamp(14px,min(1.6vw,2.7vh),26px);
+  color:#a1a1a6;
+  margin-top:1em;
+  letter-spacing:.02em;
+  line-height:1.6;
+}
+.hero .ctx{
+  font-size:clamp(11px,min(1vw,1.7vh),15px);
+  color:#6e6e73;
+  margin-top:2.4em;
+  line-height:1.8;
+}
+.hero .q{
+  font-size:clamp(15px,min(1.7vw,2.9vh),28px);
+  color:#a1a1a6;font-weight:700;line-height:1.5;margin:0 0 1.2em;
+}
+.scrollhint{
+  position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);
+  color:#6e6e73;font-size:13px;letter-spacing:.1em;
+  animation:bob 2.2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,7px);}}
+
+/* ---------- 汎用パーツ ---------- */
+.alt{background:var(--bg-2);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,44px);align-items:stretch;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.7vw,28px);align-items:stretch;}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:clamp(14px,min(1.7vw,2.9vh),26px);
+}
+.card h3{font-size:clamp(14px,min(1.3vw,2.2vh),21px);margin:0 0 .6em;font-weight:700;}
+.card p{margin:0;font-size:clamp(12px,min(1.02vw,1.75vh),17px);line-height:1.7;color:var(--ink-2);}
+/* .card p より詳細度を上げる（これが無いと大きい数字が本文サイズに潰れる） */
+.big-num,.card p.big-num{
+  font-size:clamp(30px,min(4.2vw,7.2vh),68px);font-weight:700;letter-spacing:-0.03em;line-height:1;
+  color:var(--ink);
+}
+.unit{font-size:.42em;font-weight:600;color:var(--ink-2);margin-left:.15em;}
+.foot{
+  margin-top:1.4em;font-size:clamp(10px,min(.8vw,1.35vh),13px);color:#86868b;line-height:1.7;
+}
+/* 入れ子カード（1枚に複数情報を載せる密度用） */
+.mini{padding:clamp(10px,min(1.15vw,2vh),18px);}
+.mini .big-num,.mini p.big-num{font-size:clamp(22px,min(2.9vw,5vh),44px);}
+.mini p{font-size:clamp(11px,min(.9vw,1.55vh),15px);line-height:1.55;}
+
+/* ---------- ファネル図 ---------- */
+.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:.8em 0 .3em;}
+.funnel-band{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  color:#fff;font-weight:700;border-radius:9px;padding:10px 14px;width:100%;
+  font-size:clamp(12px,min(1vw,1.7vh),16px);line-height:1.35;
+  opacity:0;transform:translateY(10px) scaleX(.94);transform-origin:center;
+  transition:opacity .5s ease,transform .5s cubic-bezier(.22,.9,.28,1);
+}
+.in .funnel-band{opacity:1;transform:translateY(0) scaleX(1);}
+.funnel-band small{display:block;font-weight:500;opacity:.85;font-size:.8em;margin-top:3px;}
+.funnel-arrow{color:var(--ink-2);font-size:13px;line-height:1;opacity:0;transition:opacity .4s ease .15s;}
+.in .funnel-arrow{opacity:1;}
+
+/* 大きい数字のカウントアップ */
+[data-count]{font-variant-numeric:tabular-nums;}
+
+/* ---------- バーチャート ---------- */
+.bars{display:flex;flex-direction:column;gap:clamp(8px,min(1.2vw,2vh),18px);}
+.bar{display:grid;grid-template-columns:minmax(120px,14vw) 1fr minmax(66px,6vw);align-items:center;gap:clamp(8px,1vw,16px);}
+.bar .nm{font-size:clamp(11px,min(.95vw,1.6vh),16px);text-align:right;line-height:1.3;}
+.bar .nm small{display:block;color:var(--ink-2);font-size:.82em;font-weight:400;}
+.track{background:#e3e3e6;border-radius:99px;height:clamp(14px,min(1.7vw,2.9vh),28px);overflow:hidden;}
+.fill{
+  height:100%;border-radius:99px;background:var(--blue-soft);
+  width:0;transition:width 1.15s cubic-bezier(.22,.9,.28,1);
+}
+.fill.key{background:var(--blue);}
+.fill.nil{background:#9ea3ab;}
+.bar .vl{font-size:clamp(13px,min(1.15vw,2vh),21px);font-weight:700;white-space:nowrap;}
+.in .fill{width:var(--w);}
+/* 半カラムに収める圧縮版 */
+.bars.compact .bar{grid-template-columns:minmax(80px,8vw) 1fr minmax(50px,4.6vw);gap:8px;}
+.bars.compact .nm{font-size:clamp(10px,min(.82vw,1.4vh),14px);}
+.bars.compact .vl{font-size:clamp(12px,min(1vw,1.7vh),18px);}
+.bars.compact .track{height:clamp(12px,min(1.4vw,2.4vh),22px);}
+
+/* ---------- 比較テーブル ---------- */
+table{width:100%;border-collapse:collapse;font-size:clamp(11px,min(.98vw,1.68vh),17px);}
+th,td{padding:.5em .4em;border-bottom:1px solid var(--line);text-align:right;}
+th:first-child,td:first-child{text-align:left;}
+th{font-size:.82em;color:var(--ink-2);font-weight:600;border-bottom:1.5px solid #b9b9be;}
+td.g{color:var(--blue);font-weight:700;}
+/* 表内の見出し行（知識／自律作業の区切り） */
+tr.grp td{
+  font-size:.85em;font-weight:700;color:var(--ink-2);
+  padding-top:.95em;border-bottom:1px solid var(--line);text-align:left;
+}
+tr.grp td .hint2{font-weight:600;}
+.tag{
+  display:inline-block;border:1px solid var(--line);border-radius:99px;
+  padding:.3em .85em;font-size:clamp(11px,min(.92vw,1.58vh),15px);color:var(--ink-2);margin:.18em .2em;
+}
+
+/* ---------- 動画 ---------- */
+.vid{
+  position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2e;
+}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.vid .hint{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  color:#8a8a90;font-size:clamp(11px,min(.95vw,1.6vh),15px);line-height:1.9;text-align:center;padding:1em;
+}
+.vid .hint code{background:#1e1e22;color:#c9c9cf;padding:.15em .5em;border-radius:5px;font-size:.95em;}
+.caption{margin-top:.7em;font-size:clamp(12px,min(1.02vw,1.75vh),18px);line-height:1.55;}
+
+/* ---------- 制約セクション（トーン切替） ---------- */
+.warn{background:#17171a;color:#f5f5f7;}
+.warn h2{color:#fff;}
+.warn .kicker{color:#c8a24a;}
+.warn .card{background:#212126;border-color:#35353c;}
+.warn .card h3{color:#e8c979;}
+.warn .card p{color:#a1a1a6;}
+.warn .big-num,.warn .card p.big-num{color:#fff;}
+.warn .unit{color:#8a8a90;}
+.warn .foot{color:#75757c;}
+.warn .lead{color:#c7c7cc;}
+
+/* ---------- 予測セクション（意図的に未完成な見た目） ---------- */
+.fc .card.dash{border:2px dashed #b0b0b6;background:#fafafa;box-shadow:none;}
+.fc .card.dash h3{color:var(--ink-2);}
+.badge{
+  display:inline-block;background:#6e6e73;color:#fff;border-radius:7px;
+  padding:.24em .9em;font-size:clamp(11px,min(.92vw,1.58vh),15px);font-weight:700;letter-spacing:.1em;
+  margin-bottom:.9em;
+}
+/* 締めの黒帯（冒頭の黒画面と呼応させる） */
+.closer{
+  background:#17171a;color:#fff;border-radius:14px;text-align:center;
+  padding:clamp(12px,min(1.5vw,2.6vh),24px) 1.2em;margin-top:clamp(12px,1.6vh,22px);
+}
+.closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(16px,min(1.95vw,3.3vh),32px);}
+
+/* ---------- 進行ドット ---------- */
+.dots{
+  position:fixed;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:11px;z-index:50;
+}
+.dots i{
+  width:7px;height:7px;border-radius:50%;background:#c7c7cc;display:block;
+  transition:.35s;cursor:pointer;
+}
+.dots i.on{background:var(--blue);transform:scale(1.55);}
+.dots.ondark i{background:#4a4a51;}
+.dots.ondark i.on{background:#fff;}
+
+/* ---------- 発表者ノート（既定OFF / Nキー） ---------- */
+#notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+  background:rgba(12,12,14,.95);color:#e8e8ed;padding:18px 26px;
+  font-size:15px;line-height:1.75;max-height:38vh;overflow:auto;
+  border-top:2px solid var(--blue);
+}
+#notes.show{display:block;}
+#notes b{color:#7ab5f0;}
+/* 操作ヒントは投影中に映り込まないよう数秒で消す（マウスを動かすと再表示） */
+.helpkey{
+  position:fixed;left:16px;bottom:14px;z-index:55;color:#b8b8be;font-size:11.5px;
+  letter-spacing:.04em;transition:opacity .8s;pointer-events:none;
+}
+.helpkey.hide{opacity:0;}
+
+/* ---------- 印刷（PDFバックアップ用） ---------- */
+@media print{
+  body{overflow:visible;scroll-snap-type:none;}
+  section{height:auto;min-height:0;page-break-after:always;padding:26px 30px;}
+  .scrollhint,.dots,#notes,.helpkey{display:none!important;}
+  .hero,.warn{background:#fff!important;color:#000!important;}
+  .hero .huge,.hero .q,.warn h2,.warn .big-num{color:#000!important;}
+  .hero .sub,.hero .ctx,.warn .card p,.warn .lead{color:#444!important;}
+  .warn .card{background:#fff!important;border-color:#999!important;}
+  .closer{background:#fff!important;color:#000!important;border:1.5px solid #999;}
+  .closer p{color:#000!important;}
+  .fill{width:var(--w)!important;transition:none!important;}
+  .funnel-band,.funnel-arrow{opacity:1!important;transform:none!important;transition:none!important;}
+}
+@media (max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .bar{grid-template-columns:110px 1fr 58px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. 導入 ＋ 結論の数字 ============ -->
+<section class="hero" data-note="<b>【約45秒】</b>先ほど『Astraってどうなの』というお話がありましたので、簡単にまとめてきました。GPT-6 Astraは、OpenAIが今年9月に公開した最新モデルです。一言で申し上げると、これまで『AIにはまだ無理だろう』と思われていたことが、かなり減りました。象徴的なのがこの数字です。ある能力テストのスコアが、今年3月にはほぼ0%、9月には62.7%になりました。5か月です。しかも人間なら100%解けるよう設計された課題です。これが何のテストで、当社にとって何を意味するのかを、この後5分でご説明します。">
+  <div class="wrap center">
+    <p class="q">「GPT-6 Astra って、結局どうなの？」</p>
+    <p class="huge tight">0.3%<span class="arrowbig">→</span>62.7%</p>
+    <p class="sub">わずか5か月で、<span style="color:#5aa9f5;font-weight:700">「AIにはまだ無理」がかなり減った</span></p>
+    <p class="ctx">
+      GPT-6 Astra ／ OpenAI が 2026年9月に公開した最新モデル<br>
+      数字は ARC-AGI-3（人間なら100%解けるよう設計された課題）での到達度　2026年3月 → 9月
+    </p>
+  </div>
+  <div class="scrollhint">↓ &nbsp; SCROLL</div>
+</section>
+
+<!-- ============ 2. 何が伸びたのか（比較表 ＋ 推移） ============ -->
+<section data-note="<b>【約70秒】</b>まず、何が伸びたのかを整理します。左の表をご覧ください。上段、大学院レベルの科学的推論では94.6%が96.0%。1.4ポイントしか動いていません。もともと高得点で頭打ちです。ですので、ご自身でチャットに数問入れてみても差は分かりません。ところが下段、自分で環境を理解して作業を進める課題では、20ポイント、50ポイント単位で動いています。伸びている軸が『知識』から『自分で作業を進める力』に変わったということです。右がその代表格ARC-AGI-3の推移です。今年3月の公開時点では各社のモデルが揃って1%未満。それが7月に7.8%、7月末に30.2%、9月2日のAstraで62.7%。約5か月でここまで来ています。私が重要だと考えているのは、62.7%という数字そのものより、この上がり方の速さです。">
+  <div class="wrap">
+    <p class="kicker">何が伸びたのか</p>
+    <h2>伸びたのは「知識」ではなく<br><span class="pop">「自分で作業を進める力」</span></h2>
+    <div class="grid2" style="margin-top:1.2em">
+      <div class="card">
+        <table>
+          <tr><th>評価</th><th>Sol</th><th>Astra</th><th>差</th></tr>
+          <tr class="grp"><td colspan="4">知識・推論　<span class="hint2" style="color:var(--ink-2)">― ほぼ頭打ち</span></td></tr>
+          <tr><td>GPQA Diamond</td><td>94.6%</td><td>96.0%</td><td class="g">+1.4</td></tr>
+          <tr class="grp"><td colspan="4" style="color:var(--blue)">自律作業　<span class="hint2">― 急伸</span></td></tr>
+          <tr><td>AutomationBench</td><td>18.1%</td><td>41.4%</td><td class="g">+23.3</td></tr>
+          <tr><td>Terminal-Bench 4.0</td><td>37.3%</td><td>57.7%</td><td class="g">+20.4</td></tr>
+          <tr><td>ARC-AGI-3</td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
+        </table>
+        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
+      </div>
+      <div class="card" style="border-color:var(--blue);border-width:2px;display:flex;flex-direction:column;justify-content:center">
+        <h3 class="pop">ARC-AGI-3 の5か月</h3>
+        <div class="bars compact" style="margin-top:.4em">
+          <div class="bar"><div class="nm">2026 / 3<small>公開時 各社</small></div><div class="track"><div class="fill nil" style="--w:0.4%"></div></div><div class="vl">〜0.4%</div></div>
+          <div class="bar"><div class="nm">7 / 9<small>GPT-5.6 Sol</small></div><div class="track"><div class="fill" style="--w:7.8%"></div></div><div class="vl">7.8%</div></div>
+          <div class="bar"><div class="nm">7 / 24<small>Claude Opus 5</small></div><div class="track"><div class="fill" style="--w:30.2%"></div></div><div class="vl">30.2%</div></div>
+          <div class="bar"><div class="nm">9 / 2<small>GPT-6 Astra</small></div><div class="track"><div class="fill key" style="--w:62.7%"></div></div><div class="vl">62.7%</div></div>
+          <div class="bar" style="margin-top:.2em"><div class="nm" style="font-weight:700">人間</div><div class="track"><div class="fill" style="--w:100%;background:#c9c9cf"></div></div><div class="vl">100%</div></div>
+        </div>
+        <p style="margin-top:1em">重要なのは62.7%という値ではなく、<strong style="color:var(--ink)">この上がり方の速さ</strong>。</p>
+      </div>
+    </div>
+    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は Semi-Private・標準ハーネス（公開前のプレビュー大会では専用エージェントが12.58%）。Source: OpenAI / ARC Prize Foundation</p>
+  </div>
+</section>
+
+<!-- ============ 3. ARC-AGI-3とは ＋ 総当たりではない ============ -->
+<section class="alt" data-note="<b>【約70秒】</b>そのARC-AGI-3とは何かをご説明します。これは説明書を渡さない試験です。ルールも、ゴールも、どのボタンが何をするかも教えません。ただし操作すれば画面は反応します。そのフィードバックが何を意味するかを、自分で解釈する必要があるということです。画面が左です。ピンクの携帯ゲーム機のような見た目で、arcprize.orgで誰でも遊べます。白い十字がプレイヤー、オレンジと青のブロックが何かの目印らしい、というところまでは見えますが、何をすれば勝ちなのかは一切書かれていません。AI自身が、触ってみて、仕組みを理解して、目標を見つけて、計画して実行します。仕事も同じで、問題が起きたとき最初から説明書が付いているとは限りません。さらに右下の2つの数字が重要です。『大量に試して力技で解いているのだろう』という説明が成り立ちにくくなっています。解けたレベルの96%で、人間の中央値より少ない操作回数で解いています。平均では51.7%少ない。ARC Prize自身、操作効率は当面人間が優位だろうと想定していたが、その想定が崩れたと述べています。※条件の注意：この効率の数字は、Astraが最高性能99.9%を出したProvider Adapter条件での測定です。">
+  <div class="wrap">
+    <p class="kicker">ARC-AGI-3 とは</p>
+    <h2>説明書を、渡さない試験</h2>
+    <div class="grid2" style="margin-top:1em;align-items:center">
+      <div class="center">
+        <img src="assets/arc_game.png" alt="ARC-AGI-3 のゲーム画面" style="max-width:72%;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)">
+        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。誰でもブラウザで遊べます。</p>
+      </div>
+      <div>
+        <div class="center" style="margin-bottom:1em">
+          <span class="tag">ルール　教えない</span>
+          <span class="tag">ゴール　教えない</span>
+          <span class="tag">操作方法　教えない</span>
+        </div>
+        <p class="center" style="font-size:clamp(15px,min(1.6vw,2.7vh),26px);color:var(--ink);font-weight:700;line-height:1.55;margin:0">
+          探索 → 仕組みを理解<br>→ 目標を見つける → 計画して実行
+        </p>
+        <p class="lead center" style="margin-top:1em">
+          正解を知っているかではなく、初めての環境で<br>「何をすべきか」を自分で組み立てられるか。
+        </p>
+        <p class="lead center" style="margin-top:1.4em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.15vw,2vh),19px);border-top:1px solid var(--line);padding-top:1em">
+          しかも「総当たり」ではない
+        </p>
+        <div class="grid2" style="gap:12px;margin-top:.7em">
+          <div class="card mini center">
+            <p class="big-num pop"><span data-count-to="96.0" data-decimals="1">0.0</span><span class="unit">%</span></p>
+            <p style="margin-top:.7em">解けたレベルのうち、人間の中央値より<strong style="color:var(--ink)">少ない操作</strong>で到達した割合</p>
+          </div>
+          <div class="card mini center">
+            <p class="big-num pop"><span data-count-to="51.7" data-decimals="1">0.0</span><span class="unit">%</span></p>
+            <p style="margin-top:.7em">平均で、人間よりこの割合だけ<strong style="color:var(--ink)">操作が少ない</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="foot center">操作効率は Astra が最高性能（99.9%）を出した Provider Adapter 条件での測定。Source: ARC Prize Foundation</p>
+  </div>
+</section>
+
+<!-- ============ 4. 現実の専門ソフト ============ -->
+<section data-note="<b>【約80秒】</b>ARCのゲームだけなら、面白い研究成果で終わります。ところが同じ能力が実際のソフトウェアに出てきています。その前に前提を2つ補足します。1つ目、『画面を見てマウスやキーボードで操作する』機能自体は、Astraが初めてではありません。Computer Useと呼ばれ以前から存在した機能です。今回変わったのは、その操作の元になる『理解して計画する』頭脳の部分です。2つ目、これからご覧いただくBlenderとKritaは、Astraのために作られたソフトではありません。Blenderは3D制作、Kritaはデジタル絵画用として、人間のプロが何年も前から使ってきた専門ソフトそのものです。AI用に改造した特別版ではなく、当社の設計者やデザイナーが使うのと同じ画面、同じメニュー、同じボタンをAIが操作しています。その上で映像です。左はBlenderで住宅をモデリングし、Unreal Engine 5に持っていって歩ける空間にした例。右はKritaを操作している過程で、『ゴッホ風に、金門橋を追加して』という指示だけを渡すと、白紙のキャンバスからレイヤーやブラシを使って段階的に描き上げていきます。28倍速再生ですが、早送りしているだけで過程そのものは本物です。※補足：Astraはマウス操作だけでなくBlender Pythonなどコードも併用しています。「画面を操作できる」より「既存の専門ソフトを道具として使える」が正確です。">
+  <div class="wrap">
+    <p class="kicker">現実の専門ソフトで</p>
+    <h2>同じことが、すでに起きている</h2>
+    <div class="center" style="margin-bottom:.7em">
+      <span class="tag">画面操作（Computer Use）自体は以前からある機能</span>
+      <span class="tag">Blender・Krita は人間のプロが使う市販・無料ソフト</span>
+    </div>
+    <p class="lead center" style="margin:0 auto 1.1em;max-width:62em">
+      今回上がったのは操作の元になる「理解して計画する」力。<br>AI向けに手を加えた特別版ではなく、人間と同じ画面をそのまま操作しています。
+    </p>
+    <div class="grid2">
+      <div>
+        <div class="vid">
+          <div class="hint">動画をここに<br><code>assets/blender.mp4</code><br><span style="font-size:.9em">OpenAI公式 Astra ページ／10〜15秒</span></div>
+          <video src="assets/blender.mp4" muted loop playsinline preload="auto"></video>
+        </div>
+        <p class="caption center">住宅を <strong>Blender</strong> で3Dモデル化<br>→ Unreal Engine 5 で歩ける空間へ</p>
+      </div>
+      <div>
+        <div class="vid">
+          <div class="hint">動画をここに<br><code>assets/krita.mp4</code><br><span style="font-size:.9em">OpenAI公式YouTube／操作過程を28倍速で圧縮</span></div>
+          <video src="assets/krita.mp4" muted loop playsinline preload="auto"></video>
+        </div>
+        <p class="caption center">「ゴッホ風に、金門橋も」の指示だけで<br><strong>Krita</strong> を操作し、白紙から描き上げる</p>
+      </div>
+    </div>
+    <p class="center" style="margin:1.1em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
+      どちらも <span class="pop">AI用に作り直していない</span>、人間の専門家が使ってきた道具
+    </p>
+  </div>
+</section>
+
+<!-- ============ 5. 当社への意味 ============ -->
+<section class="alt" data-note="<b>【約70秒】</b>では当社にとって何が変わるのか。重要なのはBlenderで3Dが作れることではありません。これまで自動化を検討するとき、最初に確認していたのはAPIがあるか、RPAが組めるか、専用システムを作れるかでした。つまり『AIが使える形』に仕事やシステムの側を変える必要があり、ここに時間と費用がかかっていました。ところが人間向けの既存ソフトをAI自身が使えるとなると、この前提が変わります。Excel、PowerPoint、社内Webシステム、専門端末。もともと人間が画面を見て操作する前提のものまで検討対象に入ってきます。『AIにできる業務は何か』を探すのではなく、『人がPCでやっているこの仕事も渡せないか』を考える対象が広がった、ということです。">
+  <div class="wrap">
+    <p class="kicker">当社にとっての意味</p>
+    <h2>AI化を検討できる業務の「母集団」が広がる</h2>
+    <div class="grid2" style="margin-top:1em">
+      <div class="card">
+        <h3 style="color:var(--ink-2)">これまで　― 絞り込まれる</h3>
+        <div class="funnel">
+          <div class="funnel-band" style="background:#9aa1ab;width:100%;transition-delay:.05s">すべての業務</div>
+          <div class="funnel-arrow" style="transition-delay:.3s">↓ 人間が手順を分析</div>
+          <div class="funnel-band" style="background:#7f8794;width:76%;transition-delay:.35s">API を用意できる／RPA を組める<br>専用システムを作れる業務だけ</div>
+          <div class="funnel-arrow" style="transition-delay:.6s">↓</div>
+          <div class="funnel-band" style="background:#5b6472;width:50%;transition-delay:.65s">自動化</div>
+        </div>
+        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);border-top:1px solid var(--line);padding-top:.8em">
+          「AIが使える形」に仕事の側を変える必要があった
+        </p>
+      </div>
+      <div class="card" style="border-color:var(--blue);border-width:2px">
+        <h3 class="pop">これから　― ほぼそのまま通る</h3>
+        <div class="funnel">
+          <div class="funnel-band" style="background:#8fb3e8;width:100%;transition-delay:.15s">すべての業務</div>
+          <div class="funnel-arrow" style="transition-delay:.4s">↓ AI が既存ソフトを理解して使う</div>
+          <div class="funnel-band" style="background:#4a84d1;width:94%;transition-delay:.45s">Excel・PowerPoint・社内Webシステム<br>専門端末・業務アプリ もそのまま</div>
+          <div class="funnel-arrow" style="transition-delay:.7s">↓</div>
+          <div class="funnel-band" style="background:var(--blue);width:90%;transition-delay:.75s">AI化の検討対象</div>
+        </div>
+        <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);border-top:1px solid var(--line);padding-top:.8em">
+          AIが「人間の仕事環境」に直接入る
+        </p>
+      </div>
+    </div>
+    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(2vw,3.4vh),33px)">
+      「AIにできる業務探し」から<span class="pop">「この仕事も渡せないか」</span>へ
+    </p>
+  </div>
+</section>
+
+<!-- ============ 6. 制約（トーン切替） ============ -->
+<section class="warn" data-note="<b>【約50秒】</b>一方で現時点の制約も正確に申し上げます。3つあります。1つ目、コスト。ARC-AGI-3で62.7%を出すのに1回の評価で約26,000ドル、400万円程度かかっています。今すぐ業務に大量投入できる価格ではありません。2つ目、成果物の検証。Astraが公開した電子回路の設計例についても、『そのまま製造して安全に使えるものではない』という批判がエンジニアから出ています。3つ目、到達度。62.7%は裏を返せば約4割は解けていない。しかも人間なら全問解ける課題です。能力の話と、任せてよいかの話は別だとお考えください。※想定問答：Provider Adapter条件では99.9%を約19,000ドルで達成しており、高スコア側の方が安いという逆転が起きています。推論状態を保持してやり直しが減るためです。">
+  <div class="wrap">
+    <p class="kicker">ただし</p>
+    <h2>現時点の制約</h2>
+    <div class="grid3" style="margin-top:1.2em">
+      <div class="card">
+        <h3>コスト</h3>
+        <p class="big-num">約2.6<span class="unit">万ドル</span></p>
+        <p style="margin-top:.8em">ARC-AGI-3 で 62.7% を出すのにかかった費用<br>（1回の評価。約400万円）</p>
+      </div>
+      <div class="card">
+        <h3>成果物の検証</h3>
+        <p style="font-size:clamp(14px,min(1.3vw,2.2vh),22px);line-height:1.55;color:#f5f5f7;font-weight:700;margin:.3em 0">
+          「そのまま製造して<br>安全に使えるものではない」
+        </p>
+        <p style="margin-top:.8em">公開されたCAD設計に対するエンジニアからの批判。作れることと使えることは別。</p>
+      </div>
+      <div class="card">
+        <h3>未解決</h3>
+        <p class="big-num">約4<span class="unit">割</span></p>
+        <p style="margin-top:.8em">人間なら100%解ける課題で、Astraがまだ解けていない割合（到達度は62.7%）</p>
+      </div>
+    </div>
+    <p class="center" style="margin:1.3em 0 0;font-weight:700;font-size:clamp(16px,min(1.9vw,3.2vh),30px);color:#fff">
+      能力の話と、<span style="color:#e8c979">任せてよいかの話は別</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 7. この先 ＋ 締め ============ -->
+<section class="fc" data-note="<b>【約55秒】</b>最後にこの先の話です。ここから先は予測で、現在すべて実現済みという話ではありません。今の能力向上の延長線上にはこうした仕事があります。半導体の設計書を渡して改善してもらう。論文と実装を渡して次を考えてもらう。金融工学の未整理の問題を渡して定式化から解法探索まで進めてもらう。以前なら何を試すかは専門家自身が考える必要がありました。そこにAIが入り始めています。なお下の枠は予測ではなく事実です。Astraの社内版が、数学・理論計算機科学の未解決問題10件で解決または大幅な進展を出し、証明はLean 4で機械検証のうえGitHub公開されています。費用は合計約2,000ドルです。まとめます。私が最も重要だと考えるのは、62.7%という絶対値ではなく上がり方の速さです。3月にはほぼ0%でした。『この業務は今のAIには難しい』という現在の観察を、そのまま来年の前提に置くことが難しくなっています。以上です。">
+  <div class="wrap">
+    <span class="badge">予測</span>
+    <h2>この先に見えているもの</h2>
+    <div class="grid3" style="margin-top:1em">
+      <div class="card dash">
+        <h3>半導体設計</h3>
+        <p>設計書を渡して</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「性能・消費電力・面積を改善して」</p>
+      </div>
+      <div class="card dash">
+        <h3>AI研究</h3>
+        <p>論文と実装を渡して</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「ボトルネックを見つけて改善して」</p>
+      </div>
+      <div class="card dash">
+        <h3>金融工学</h3>
+        <p>未整理の問題を渡して</p>
+        <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);line-height:1.5">「定式化して解法を探して」</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1em;background:#fff">
+      <p style="color:var(--ink)"><strong class="pop">こちらは予測ではなく事実　</strong>Astra の社内版が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。証明は Lean 4 で機械検証のうえ GitHub 公開。トークン費用は合計 約2,000ドル。<span style="color:var(--ink-2)">（OpenAI, 2026年8月）</span></p>
+    </div>
+    <div class="closer">
+      <p>「今はまだできない」を<span style="color:#5aa9f5">固定した前提に置けない</span></p>
+      <p style="font-size:clamp(11px,min(1vw,1.7vh),16px);font-weight:500;color:#a1a1a6;margin-top:.6em">2026 / 3　ほぼ 0%　→　2026 / 9　62.7%</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. 参考：Jane Street の評価（質疑用） ============ -->
+<section class="alt" data-note="<b>【参考・任意】</b>ここからは補足資料です。時間が余れば、あるいは質疑で聞かれたら使ってください。トレーディングファームのJane Streetは、OpenAIとAnthropic、両社の発表にコメントを寄せています。OpenAI側への発言は、Astraが自社の前モデルSolと比べてコーディングとtrading intuition評価の両方で前進した、というものです。一方Anthropic側への発言は、Claude Fable 5.1がtrading intuitionで最高水準に達した、というものです。つまりJane Streetは、特定のベンダーを推しているわけではありません。実務家が、目的に応じてモデルを評価し、使い分け始めている。当社でこの種の評価をする場合も、1社のベンチマークを鵜呑みにせず、自社の業務で複数モデルを比較検証することが重要になります。">
+  <div class="wrap">
+    <span class="badge" style="background:#6e6e73">参考 ／ 質疑用</span>
+    <p class="kicker">実務家の評価　Jane Street（トレーディングファーム）</p>
+    <h2>同じ評価者が、目的によって評価を分けている</h2>
+    <div class="grid2" style="margin-top:1.2em">
+      <div class="card">
+        <h3>OpenAI 向けコメント</h3>
+        <p style="font-style:italic;color:var(--ink);line-height:1.7">
+          “GPT‑6 Astra delivers state-of-the-art performance on our internal coding benchmarks and shows a clear step forward in trading intuition evaluations <strong>compared with GPT‑5.6 Sol</strong>.”
+        </p>
+        <p style="margin-top:.8em">John Crepezzi — AI Assistants, Jane Street</p>
+      </div>
+      <div class="card" style="border-color:var(--blue);border-width:2px">
+        <h3 class="pop">Anthropic 向けコメント</h3>
+        <p style="font-style:italic;color:var(--ink);line-height:1.7">
+          “Claude Fable 5.1 solves more of our coding problems than Fable 5 or Opus 5, and <strong>achieves state of the art on trading intuition</strong>.”
+        </p>
+        <p style="margin-top:.8em">Craig Falls — Head of Quantitative Research, Jane Street</p>
+      </div>
+    </div>
+    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
+      実務家は、<span class="pop">1社のモデルを妄信せず</span>目的別に使い分け始めている
+    </p>
+    <p class="foot">それぞれ OpenAI 公式サイト・Anthropic 公式サイトに掲載の顧客コメント。左は Astra 社内の前モデル（GPT-5.6 Sol）比較であり、Claude との直接比較ではない。Source: openai.com, anthropic.com</p>
+  </div>
+</section>
+
+<div class="dots" id="dots"></div>
+<div id="notes"></div>
+<div class="helpkey">↑↓ / PageUp・PageDown で送る　　N：発表者ノート表示</div>
+
+<script>
+(function(){
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section'));
+  var dots = document.getElementById('dots');
+  var notes = document.getElementById('notes');
+  var cur = 0;
+
+  // 進行ドット
+  secs.forEach(function(s,i){
+    var d = document.createElement('i');
+    d.addEventListener('click', function(){ go(i); });
+    dots.appendChild(d);
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function paint(i){
+    dotEls.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+    var dark = secs[i].classList.contains('hero') || secs[i].classList.contains('warn');
+    dots.classList.toggle('ondark', dark);
+    notes.innerHTML = secs[i].getAttribute('data-note') || '';
+  }
+
+  function go(i){
+    i = Math.max(0, Math.min(secs.length-1, i));
+    secs[i].scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // 表示中セクションの検出＋アニメーション発火
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('in');
+      cur = secs.indexOf(e.target);
+      paint(cur);
+      // 動画は表示された時だけ再生（1スライドに複数動画がある場合も全部再生する）
+      e.target.querySelectorAll('video').forEach(function(v){
+        var p = v.play(); if(p && p.catch) p.catch(function(){});
+      });
+      // 大きい数字はカウントアップ（一度だけ）
+      e.target.querySelectorAll('[data-count-to]').forEach(function(el){
+        if(el.dataset.counted) return;
+        el.dataset.counted = '1';
+        var target = parseFloat(el.getAttribute('data-count-to'));
+        var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        var dur = 900, t0 = performance.now();
+        function step(t){
+          var p = Math.min(1, (t - t0) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(dec);
+          if(p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+  }, {threshold:0.55});
+  secs.forEach(function(s){ io.observe(s); });
+
+  // キー操作（投影中の誤爆を防ぐため最小限）
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(k==='ArrowDown'||k==='PageDown'||k===' '||k==='ArrowRight'){ e.preventDefault(); go(cur+1); }
+    else if(k==='ArrowUp'||k==='PageUp'||k==='ArrowLeft'){ e.preventDefault(); go(cur-1); }
+    else if(k==='Home'){ e.preventDefault(); go(0); }
+    else if(k==='End'){ e.preventDefault(); go(secs.length-1); }
+    else if(k==='n'||k==='N'){ notes.classList.toggle('show'); }
+  });
+
+  // 操作ヒントの自動フェード（投影中の映り込み防止）
+  var help = document.querySelector('.helpkey'), ht;
+  function nudge(){
+    help.classList.remove('hide');
+    clearTimeout(ht);
+    ht = setTimeout(function(){ help.classList.add('hide'); }, 5000);
+  }
+  document.addEventListener('mousemove', nudge);
+  nudge();
+
+  secs[0].classList.add('in');
+  paint(0);
+})();
+</script>
+</body>
+</html>

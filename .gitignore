@@ -1,0 +1,8 @@
+tools/node_modules/
+tools/_screenshots/
+
+# 公開リポジトリには含めない（ローカルには残す）
+# - sources/: OpenAI公式動画のフル尺。切り出し元でリポジトリ側では未使用
+# - archive/: 没・旧版の草稿
+sources/
+archive/
