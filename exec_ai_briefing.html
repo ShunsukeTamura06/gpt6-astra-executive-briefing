@@ -183,6 +183,8 @@ tr.grp td{
   padding-top:.95em;border-bottom:1px solid var(--line);text-align:left;
 }
 tr.grp td .hint2{font-weight:600;}
+/* 英語の評価名だけでは伝わらないため、下に日本語の補足を添える */
+td small,th small{display:block;color:var(--ink-2);font-size:.78em;font-weight:400;line-height:1.3;margin-top:.15em;}
 .tag{
   display:inline-block;border:1px solid var(--line);border-radius:99px;
   padding:.3em .85em;font-size:clamp(11px,min(.92vw,1.58vh),15px);color:var(--ink-2);margin:.18em .2em;
@@ -318,13 +320,13 @@ tr.grp td .hint2{font-weight:600;}
     <div class="grid2" style="margin-top:1.2em">
       <div class="card">
         <table>
-          <tr><th>評価</th><th>Sol</th><th>Astra</th><th>差</th></tr>
+          <tr><th>評価</th><th>Sol<small>前モデル</small></th><th>Astra<small>今回</small></th><th>差</th></tr>
           <tr class="grp"><td colspan="4">知識・推論　<span class="hint2" style="color:var(--ink-2)">― ほぼ頭打ち</span></td></tr>
-          <tr><td>GPQA Diamond</td><td>94.6%</td><td>96.0%</td><td class="g">+1.4</td></tr>
+          <tr><td>GPQA Diamond<small>大学院レベルの科学・推論問題</small></td><td>94.6%</td><td>96.0%</td><td class="g">+1.4</td></tr>
           <tr class="grp"><td colspan="4" style="color:var(--blue)">自律作業　<span class="hint2">― 急伸</span></td></tr>
-          <tr><td>AutomationBench</td><td>18.1%</td><td>41.4%</td><td class="g">+23.3</td></tr>
-          <tr><td>Terminal-Bench 4.0</td><td>37.3%</td><td>57.7%</td><td class="g">+20.4</td></tr>
-          <tr><td>ARC-AGI-3</td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
+          <tr><td>AutomationBench<small>実務作業をどこまでやり切れるか</small></td><td>18.1%</td><td>41.4%</td><td class="g">+23.3</td></tr>
+          <tr><td>Terminal-Bench 4.0<small>PC上の作業をやり切れるか</small></td><td>37.3%</td><td>57.7%</td><td class="g">+20.4</td></tr>
+          <tr><td>ARC-AGI-3<small>説明書なしの初見課題（次ページ）</small></td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
         </table>
         <p style="margin-top:1em">数問チャットで試しても差は体感できない。<strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
       </div>
@@ -344,7 +346,7 @@ tr.grp td .hint2{font-weight:600;}
     <div class="numnote">
       <p><strong>「Astraは99.9%」と聞いた場合　</strong>どちらも本当で、測り方が2通りあります。グラフの <span class="k">62.7%</span> は、各社のモデルを<strong>同じ条件に揃えて横並びで比べる</strong>ときの数字。<span class="k">99.9%</span> は、<strong>途中まで考えた内容を保持したまま解き進められる</strong>条件で、Astraの力を最大限引き出したときの数字です。他社と比較するなら前者、Astraの上限を見るなら後者。</p>
     </div>
-    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は Semi-Private。62.7%は各社共通条件、99.9%はOpenAI提供の実行環境での測定値。Source: OpenAI / ARC Prize Foundation</p>
+    <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。62.7%は各社共通条件、99.9%はOpenAI提供の実行環境での測定値。Source: OpenAI / ARC Prize Foundation</p>
   </div>
 </section>
 
@@ -415,7 +417,7 @@ tr.grp td .hint2{font-weight:600;}
           <div class="hint">動画をここに<br><code>assets/krita.mp4</code><br><span style="font-size:.9em">OpenAI公式YouTube／操作過程を28倍速で圧縮</span></div>
           <video src="assets/krita.mp4" muted loop playsinline preload="auto"></video>
         </div>
-        <p class="caption center">「ゴッホ風に、金門橋も」の指示だけで<br><strong>Krita</strong> を操作し、白紙から描き上げる</p>
+        <p class="caption center">「ゴッホ風に、金門橋も」の指示だけで<br>絵画ソフト <strong>Krita</strong> を操作し、白紙から描き上げる</p>
       </div>
     </div>
     <p class="center" style="margin:1.1em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
@@ -442,6 +444,7 @@ tr.grp td .hint2{font-weight:600;}
         <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(13px,min(1.2vw,2.05vh),20px);border-top:1px solid var(--line);padding-top:.8em">
           「AIが使える形」に仕事の側を変える必要があった
         </p>
+        <p class="foot" style="margin-top:.7em">API＝外部のシステムから呼び出すための接続口／RPA＝人の画面操作を記録して自動再生する仕組み</p>
       </div>
       <div class="card" style="border-color:var(--blue);border-width:2px">
         <h3 class="pop">これから　― ほぼそのまま通る</h3>
@@ -518,9 +521,9 @@ tr.grp td .hint2{font-weight:600;}
     </div>
     <div class="card factbox" style="margin-top:1em;background:#fff">
       <p><strong class="pop">こちらは予測ではなく事実。しかも1か月で段が上がっている</strong></p>
-      <p><span class="when">2026年8月</span>Astra の社内版が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。Lean 4 で機械検証のうえ GitHub 公開、トークン費用は合計 約2,000ドル。</p>
-      <p><span class="when">2026年9月8日</span><strong>Astra より高性能な未公開モデル</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、約1万エージェント・88時間かけて証明に到達。Lean で形式検証済み。</p>
-      <p class="cav">※ ナビエ・ストークスは4つの定式化のうち外力ありのC・Dのみで、問題の全面解決ではない。独立検証・査読はこれからで、先行研究者との経緯にも異論が出ている。<strong style="color:var(--ink)">Astra本体ではなく、その次の世代が出した結果</strong>である点も含め、この枠は「到達点」ではなく「進み方の速さ」として見ていただきたい。</p>
+      <p><span class="when">2026年8月</span>Astra の社内版が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。証明が正しいかを機械的に検証する仕組み（Lean 4）にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
+      <p><span class="when">2026年9月8日</span><strong>Astra より高性能な未公開モデル</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、約1万体のAIを並列で動かし、88時間かけて証明に到達。同じく機械検証済み。</p>
+      <p class="cav">※ ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけ。問題の全面解決ではない。独立検証・査読はこれからで、先行研究者との経緯にも異論が出ている。<strong style="color:var(--ink)">Astra本体ではなく、その次の世代が出した結果</strong>である点も含め、この枠は「到達点」ではなく「進み方の速さ」として見ていただきたい。</p>
     </div>
     <div class="closer">
       <p>「今はまだできない」を<span style="color:#5aa9f5">固定した前提に置けない</span></p>
@@ -541,14 +544,16 @@ tr.grp td .hint2{font-weight:600;}
         <p style="font-style:italic;color:var(--ink);line-height:1.7">
           “GPT‑6 Astra delivers state-of-the-art performance on our internal coding benchmarks and shows a clear step forward in trading intuition evaluations <strong>compared with GPT‑5.6 Sol</strong>.”
         </p>
-        <p style="margin-top:.8em">John Crepezzi — AI Assistants, Jane Street</p>
+        <p style="margin-top:.7em;color:var(--ink)">（要約）コーディングの社内評価で最高水準。トレーディングの判断力でも、前モデル Sol から明確に前進した。</p>
+        <p style="margin-top:.6em">John Crepezzi — AI Assistants, Jane Street</p>
       </div>
       <div class="card" style="border-color:var(--blue);border-width:2px">
         <h3 class="pop">Anthropic 向けコメント</h3>
         <p style="font-style:italic;color:var(--ink);line-height:1.7">
           “Claude Fable 5.1 solves more of our coding problems than Fable 5 or Opus 5, and <strong>achieves state of the art on trading intuition</strong>.”
         </p>
-        <p style="margin-top:.8em">Craig Falls — Head of Quantitative Research, Jane Street</p>
+        <p style="margin-top:.7em;color:var(--ink)">（要約）Claude Fable 5.1 は旧版より多くの課題を解き、トレーディングの判断力で最高水準に達した。</p>
+        <p style="margin-top:.6em">Craig Falls — Head of Quantitative Research, Jane Street</p>
       </div>
     </div>
     <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.7vw,2.9vh),27px)">
