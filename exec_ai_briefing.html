@@ -245,6 +245,11 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
   padding:clamp(12px,min(1.5vw,2.6vh),24px) 1.2em;margin-top:clamp(12px,1.6vh,22px);
 }
 .closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(18px,min(2.05vw,3.5vh),36px);}
+/* 締めは「変わらなかった側」と「変わった側」を対比させる */
+.closer .c1{font-size:clamp(13px,min(1.18vw,2vh),21px);color:#a1a1a6;font-weight:600;}
+.closer .c2{font-size:clamp(17px,min(1.85vw,3.15vh),32px);margin-top:.35em;}
+.closer .c3{font-size:clamp(15px,min(1.58vw,2.7vh),28px);margin-top:.6em;color:#c7c7cc;}
+.closer .num{font-size:.72em;font-weight:600;color:#8a8a90;margin-left:.4em;}
 
 /* ---------- 進行ドット ---------- */
 .dots{
@@ -498,7 +503,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 </section>
 
 <!-- ============ 7. この先 ＋ 締め ============ -->
-<section class="fc" data-note="<b>【約60秒】</b>最後に、この先です。上の3つは予測です。半導体の設計、AI研究、金融工学。以前なら、何を試すかは専門家自身が考える必要がありました。下の枠は予測ではなく事実です。先月8月、まだ公開前だったAstraが数学の未解決問題10件で進展を出し、昨日9月8日には、Astraの次の世代にあたる未公開モデルが、ミレニアム懸賞問題の一つで証明に到達しました。Astraが古いのではなく、世代交代がこの速さで進んでいるということです。ただし全面解決ではなく、査読もこれからです。申し上げたいのは到達点ではなく、この1か月で段が上がった、その速さです。3月にはほぼ0%でした。『今のAIには難しい』という現在の観察を、そのまま来年の前提に置けなくなっています。以上です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『賞金は出たのか』→出ていません。一流数学誌に掲載後2年の検討を経て判断される規定で、現時点では未査読です。(2)『経緯に異論とは』→NYUの研究者らがほぼ同時期に近い手法の成果を公開しており、OpenAIが自分たちの研究を知った直後に動いたと問題視しています。OpenAI側は否定しており決着していないため、この場では踏み込まない方が安全です。(3)『AIが全部解いたのか』→違います。Clay問題の設定者本人が、理論的な土台は先行研究にあると述べています。人間の積み上げの上に乗っている、というのが公平な理解です。</span>">
+<section class="fc" data-note="<b>【約70秒】</b>最後に、この先です。上の3つは予測です。半導体の設計、AI研究、金融工学。以前なら、何を試すかは専門家自身が考える必要がありました。下の枠は予測ではなく事実です。先月8月、まだ公開前だったAstraが数学の未解決問題10件で進展を出し、昨日9月8日には、Astraの次の世代にあたる未公開モデルが、ミレニアム懸賞問題の一つで証明に到達しました。Astraが古いのではなく、世代交代がこの速さで進んでいるということです。ただし全面解決ではなく、査読もこれからです。まとめます。チャットとしての賢さは、これまで通りの伸びです。数問試しても違いは分かりません。ところが、自分でPCを操作して仕事を進める力は、7.8%が62.7%へ飛躍的に伸びました。つまり、AIに任せられる仕事が急に広がったということです。これが本日いちばんお伝えしたかったことです。以上です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『賞金は出たのか』→出ていません。一流数学誌に掲載後2年の検討を経て判断される規定で、現時点では未査読です。(2)『経緯に異論とは』→NYUの研究者らがほぼ同時期に近い手法の成果を公開しており、OpenAIが自分たちの研究を知った直後に動いたと問題視しています。OpenAI側は否定しており決着していないため、この場では踏み込まない方が安全です。(3)『AIが全部解いたのか』→違います。Clay問題の設定者本人が、理論的な土台は先行研究にあると述べています。人間の積み上げの上に乗っている、というのが公平な理解です。</span>">
   <div class="wrap">
     <span class="badge">予測</span>
     <h2>この先に見えているもの</h2>
@@ -526,8 +531,9 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
       <p class="cav">※ <strong style="color:var(--ink)">9月8日の結果はAstra本体ではなく、その次の世代によるもの。Astraが古いという意味ではなく、世代交代がこの速さで進んでいるということ。</strong>なお、ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけで、全面解決ではない。独立検証・査読もこれからで、先行研究者との経緯には異論も出ている。</p>
     </div>
     <div class="closer">
-      <p>「今はまだできない」を<span style="color:#5aa9f5">固定した前提に置けない</span></p>
-      <p style="font-size:clamp(13px,min(1.12vw,1.9vh),19px);font-weight:500;color:#a1a1a6;margin-top:.6em">2026 / 3　ほぼ 0%　→　2026 / 9　62.7%</p>
+      <p class="c1">チャットとしての賢さ　―　これまで通りの伸び<span class="num">94.6% → 96.0%</span></p>
+      <p class="c2">自分でPCを操作して仕事を進める力が<span style="color:#5aa9f5">飛躍的に伸びた</span><span class="num">7.8% → 62.7%</span></p>
+      <p class="c3">だから、<span style="color:#5aa9f5;font-weight:700">任せられる仕事が急に広がった</span></p>
     </div>
   </div>
 </section>
