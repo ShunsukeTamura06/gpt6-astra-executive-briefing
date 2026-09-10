@@ -73,21 +73,20 @@ h2{
 
 /* ---------- Hero ---------- */
 .hero{background:#000;color:#fff;}
-.hero .huge{
-  font-size:clamp(40px,min(8.6vw,15vh),132px);
+.hero .cover-title{
+  font-size:clamp(28px,min(4.6vw,7.8vh),82px);
   font-weight:700;
-  letter-spacing:-0.045em;
-  line-height:1;
+  letter-spacing:-0.035em;
+  line-height:1.2;
   margin:0;
-  white-space:nowrap;
 }
-.hero .arrowbig{color:#5a5a5f;padding:0 .12em;}
-.hero .sub{
-  font-size:clamp(16px,min(1.72vw,2.92vh),30px);
+.hero .cover-lead{
+  font-size:clamp(15px,min(1.45vw,2.45vh),26px);
   color:#a1a1a6;
-  margin-top:1em;
-  letter-spacing:.02em;
-  line-height:1.6;
+  margin:1.5em auto 0;
+  max-width:42em;
+  line-height:1.75;
+  font-weight:500;
 }
 .hero .q{
   font-size:clamp(17px,min(1.82vw,3.1vh),32px);
@@ -316,11 +315,11 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 <body>
 
 <!-- ============ 1. 導入 ＋ 結論の数字 ============ -->
-<section class="hero" data-note="<b>【約50秒】</b>先ほど『Astraってどうなの』というお話がありましたので、まとめてきました。GPT-6 Astraは、OpenAIが今年9月に公開した最新モデルです。一言で申し上げると、『AIにはまだ無理』と思われていたことが、かなり減りました。象徴的なのがこの数字です。ある能力テストが、3月25日にほぼ0%、9月2日に62.7%。5か月あまりです。下に引いたのは、トレーディングファームのJane Streetのコメントです。<b>コーディングだけでなく、トレーディングの判断力でも前モデルから明確に前進した</b>と評価しています。何のテストで、当社に何を意味するのかを、6分ほどでご説明します。">
+<section class="hero" data-note="<b>【約45秒】</b>先ほど『Astraってどうなの』というお話がありましたので、まとめてきました。GPT-6 Astraは、OpenAIが今年9月に公開した最新モデルです。<b>一言で申し上げると、AIにできる仕事が急に広がりました。</b>人間向けのソフトをAI自身が使って、作業を最後までやり切れるようになったためです。下に引いたのは、トレーディングファームのJane Streetのコメントです。<b>コーディングだけでなく、トレーディングの判断力でも前モデルから明確に前進した</b>と評価しています。何がどこまでできて、何がまだできないのかを、7分ほどでご説明します。">
   <div class="wrap center">
     <p class="q">「GPT-6 Astra って、結局どうなの？」</p>
-    <p class="huge tight">0.5%<span class="arrowbig">→</span>62.7%</p>
-    <p class="sub">わずか5か月あまりで、<span style="color:#5aa9f5;font-weight:700">「AIにはまだ無理」がかなり減った</span></p>
+    <h1 class="cover-title">できる仕事が、<span style="color:#5aa9f5">急に広がった</span></h1>
+    <p class="cover-lead">人間向けのソフトを AI 自身が使って、作業を最後までやり切れるようになった。<br>何がどこまでできて、何がまだできないのかを扱います。</p>
     <div class="quote">
       <p class="qt">“GPT‑6 Astra delivers state-of-the-art performance on our internal coding benchmarks and shows <em>a clear step forward in trading intuition evaluations</em> compared with GPT‑5.6 Sol.”</p>
       <p class="qs">コーディングの社内評価で最高水準。<strong><span class="nb">トレーディングの判断力でも、</span>前モデル Sol から<span class="nb">明確に前進した。</span></strong></p>
