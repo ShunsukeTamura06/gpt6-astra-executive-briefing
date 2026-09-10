@@ -7,6 +7,22 @@ ARC-AGI-3のスコア推移（2026年3月 ほぼ0% → 9月 62.7%）を題材に
 | `exec_ai_briefing.html` | 役員 | 8 | 5〜10分 | AIに任せられる業務の母集団が広がった |
 | `engineer_ai_briefing.html` | エンジニア勉強会 | 11（うち1枚は参考） | 約19分＋質疑 | 役員版と同じ「Astra で何が起きたか」を、技術的に踏み込んで読む |
 
+## 発表原稿
+
+読み上げ用に、発表者ノートだけを切り出したテキストを置いてある。**手で編集せず、資料を直したら再生成すること。**
+
+| ファイル | 対象 | 読み上げ時間 |
+|---|---|---|
+| `engineer_briefing_script.md` | エンジニア版 11ページ | 約16分15秒 |
+| `exec_briefing_script.md` | 役員版 8ページ | 約6分55秒 |
+
+```bash
+uv run tools/extract_script.py engineer_ai_briefing.html engineer_briefing_script.md
+uv run tools/extract_script.py exec_ai_briefing.html   exec_briefing_script.md
+```
+
+スライド番号・見出し・時間配分と累計、動画/音声の注意、質疑用ノート（引用ブロック）まで含む。ブラウザで `N` キーを押したときに出るのと同じ内容。
+
 `exec_ai_briefing_backup.pdf` は役員版の表示が崩れた場合の保険。エンジニア版の構成・各スライドの発表者ノート原稿・設計判断の理由は `engineer_briefing_outline.md` に残してある。
 
 ## 参考スライド（本編のあと、時間が余れば）
