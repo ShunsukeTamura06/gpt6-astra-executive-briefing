@@ -228,7 +228,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 .badge{
   display:inline-block;background:#6e6e73;color:#fff;border-radius:7px;
   padding:.24em .9em;font-size:clamp(12px,min(1.05vw,1.8vh),19px);font-weight:700;letter-spacing:.1em;
-  margin-bottom:.9em;
+  margin-bottom:.7em;
 }
 /* 62.7% と 99.9% の測り方の違いを説明する注記 */
 .numnote{
@@ -241,25 +241,27 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 .numnote .k{color:var(--blue);font-weight:700;}
 
 /* 「予測ではなく事実」の枠。年月を左に揃えて並べ、進み方の速さを見せる */
-.factbox p{color:var(--ink);margin-top:.45em;}
+.factbox p{color:var(--ink);margin-top:.36em;}
 .factbox p:first-child{margin-top:0;}
 .factbox .when{color:var(--blue);font-weight:700;margin-right:.4em;}
-.factbox .cav{color:var(--ink-2);font-size:.9em;margin-top:.7em;line-height:1.6;}
+.factbox .cav{color:var(--ink-2);font-size:.9em;margin-top:.55em;line-height:1.55;}
 
 /* 締めの黒帯（冒頭の黒画面と呼応させる） */
 .closer{
   background:#17171a;color:#fff;border-radius:14px;text-align:center;
-  padding:clamp(12px,min(1.5vw,2.6vh),24px) 1.2em;margin-top:clamp(12px,1.6vh,22px);
+  padding:clamp(10px,min(1.28vw,2.2vh),20px) 1.2em;margin-top:clamp(8px,1.1vh,16px);
 }
 /* 締めが本発表のまとめであることを明示するラベル */
-.closer .clabel{display:inline-block;border:1px solid #4a4a51;border-radius:99px;padding:.32em 1.15em;font-size:clamp(11px,min(.98vw,1.68vh),18px);color:#c7c7cc;letter-spacing:.2em;font-weight:700;margin:0 0 .95em;line-height:1.2;}
+.closer .clabel{display:inline-block;border:1px solid #4a4a51;border-radius:99px;padding:.3em 1.1em;font-size:clamp(11px,min(.95vw,1.62vh),17px);color:#c7c7cc;letter-spacing:.2em;font-weight:700;margin:0 0 .75em;line-height:1.2;}
 .closer p{margin:0;font-weight:700;line-height:1.45;font-size:clamp(18px,min(2.05vw,3.5vh),36px);}
 /* 締めは「変わらなかった側」と「変わった側」を対比させる */
 .closer .c1{font-size:clamp(13px,min(1.18vw,2vh),21px);color:#a1a1a6;font-weight:600;}
 .closer .c2{font-size:clamp(17px,min(1.85vw,3.15vh),32px);margin-top:.35em;}
-.closer .c3{font-size:clamp(15px,min(1.58vw,2.7vh),28px);margin-top:.6em;color:#c7c7cc;}
+.closer .c3{font-size:clamp(15px,min(1.58vw,2.7vh),28px);margin-top:.5em;color:#c7c7cc;}
 /* 締めの但し書き。6枚目の制約と同じ琥珀で呼応させる */
-.closer .c4{font-size:clamp(12px,min(1.25vw,2.15vh),22px);color:#a1a1a6;font-weight:600;margin-top:.6em;}
+.closer .cnote{margin-top:.8em;padding-top:.7em;border-top:1px solid #35353c;}
+.closer .c4{font-size:clamp(12px,min(1.2vw,2.05vh),21px);color:#8a8a90;font-weight:600;}
+.closer .c5{font-size:clamp(14px,min(1.48vw,2.5vh),26px);color:#a1a1a6;font-weight:600;margin-top:.5em;line-height:1.6;}
 .closer .num{font-size:.72em;font-weight:600;color:#8a8a90;margin-left:.4em;}
 
 /* ---------- 進行ドット ---------- */
@@ -515,11 +517,11 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 </section>
 
 <!-- ============ 7. この先 ＋ 締め ============ -->
-<section class="fc" data-note="<b>【約40秒】</b>最後に、この先です。上の3つは予測ですが、<b>下の枠は予測ではなく事実で、1か月で段が上がっています。</b>ただし9月8日の分はAstra本体ではなく次の世代によるもので、<b>Astraが古いのではなく、世代交代がこの速さで進んでいるということです。</b><br>まとめます。<b>チャットとしての賢さは、これまで通りの伸びです。伸びたのは自分で作業を進める力で、だからできる仕事が急に広がりました。ただし、任せるにはコストや規約といった制約が残ります。</b>以上です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『賞金は出たのか』→出ていません。一流数学誌に掲載後2年の検討を経て判断される規定で、現時点では未査読です。(2)『先行研究との関係は』→NYUの研究者らがほぼ同時期に近い手法の成果を公開しており、OpenAIが自分たちの研究を知った直後に動いたと問題視しています。OpenAI側は否定しており決着していないため、この場では踏み込まない方が安全です。(3)『AIが全部解いたのか』→違います。Clay問題の設定者本人が、理論的な土台は先行研究にあると述べています。人間の積み上げの上に乗っている、というのが公平な理解です。(4)『細かい話を聞かれたら』→8月の分はLean 4という証明検証の仕組みにかけたうえでGitHub公開、費用は合計約2,000ドル。9月8日の分は約1万体のAIを並列で動かして88時間かけたものです。ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけです。賞金は100万ドルです。</span>">
+<section class="fc" data-note="<b>【約40秒】</b>最後に、この先です。上の3つは予測ですが、<b>下の枠は予測ではなく事実で、1か月で段が上がっています。</b>ただし9月8日の分はAstra本体ではなく次の世代によるもので、<b>Astraが古いのではなく、世代交代がこの速さで進んでいるということです。</b><br>まとめます。<b>チャットとしての賢さは、これまで通りの伸びです。伸びたのは自分で作業を進める力で、だからできる仕事が急に広がりました。<b>ただし、任せられるかは別です。どう進めるかは自分で見つけられますが、何を守るべきかは見つけられません。そこは、こちらが渡すしかありません。</b>以上です。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『賞金は出たのか』→出ていません。一流数学誌に掲載後2年の検討を経て判断される規定で、現時点では未査読です。(2)『先行研究との関係は』→NYUの研究者らがほぼ同時期に近い手法の成果を公開しており、OpenAIが自分たちの研究を知った直後に動いたと問題視しています。OpenAI側は否定しており決着していないため、この場では踏み込まない方が安全です。(3)『AIが全部解いたのか』→違います。Clay問題の設定者本人が、理論的な土台は先行研究にあると述べています。人間の積み上げの上に乗っている、というのが公平な理解です。(4)『細かい話を聞かれたら』→8月の分はLean 4という証明検証の仕組みにかけたうえでGitHub公開、費用は合計約2,000ドル。9月8日の分は約1万体のAIを並列で動かして88時間かけたものです。ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけです。賞金は100万ドルです。</span>">
   <div class="wrap">
     <span class="badge">予測</span>
     <h2>この先に見えているもの</h2>
-    <div class="grid3" style="margin-top:1em">
+    <div class="grid3" style="margin-top:.7em">
       <div class="card dash">
         <h3>半導体設計</h3>
         <p>設計書を渡して</p>
@@ -536,7 +538,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
         <p style="margin-top:.5em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);line-height:1.5">「定式化して解法を探して」</p>
       </div>
     </div>
-    <div class="card factbox" style="margin-top:1em;background:#fff">
+    <div class="card factbox" style="margin-top:.75em;background:#fff">
       <p><strong class="pop">こちらは予測ではなく事実。しかも1か月で段が上がっている</strong></p>
       <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の<span class="nb">未解決問題 10件</span>で<strong>解決または大幅な進展</strong>。</p>
       <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題の一つ <strong>「ナビエ・ストークス方程式」</strong> で<strong>証明に到達</strong>。</p>
@@ -547,7 +549,10 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
       <p class="c1">チャットとしての賢さ　―　これまで通りの伸び<span class="num">＋1.4 ポイント</span></p>
       <p class="c2">「自分で作業を進める力」が<span style="color:#5aa9f5">飛躍的に伸びた</span><span class="num">＋20〜55 ポイント</span></p>
       <p class="c3">だから、<span style="color:#5aa9f5;font-weight:700">できる仕事が急に広がった</span></p>
-      <p class="c4">ただし、任せるには<span style="color:#e8c979;font-weight:700">コストや規約などの制約</span>が残る</p>
+      <div class="cnote">
+        <p class="c4">ただし、<span style="color:#e8c979;font-weight:700">任せられるかは別</span></p>
+        <p class="c5">どう進めるかは、<span style="color:#fff">自分で見つけられる</span>。<br>何を守るべきかは、<span style="color:#e8c979;font-weight:700">見つけられない</span>。</p>
+      </div>
     </div>
   </div>
 </section>
