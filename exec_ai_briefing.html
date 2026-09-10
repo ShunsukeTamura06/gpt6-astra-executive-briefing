@@ -92,13 +92,21 @@ h2{
 .hero .ctx{
   font-size:clamp(13px,min(1.1vw,1.88vh),19px);
   color:#6e6e73;
-  margin-top:2.4em;
+  margin-top:1.7em;
   line-height:1.8;
 }
 .hero .q{
   font-size:clamp(17px,min(1.82vw,3.1vh),32px);
   color:#a1a1a6;font-weight:700;line-height:1.5;margin:0 0 1.2em;
 }
+/* 1枚目の引用。数字の主役を邪魔しないよう、罫線1本と小さめの字で置く */
+.hero .quote{max-width:52em;margin:2em auto 0;text-align:left;border-left:2px solid #3a3a42;padding-left:1.15em;}
+.hero .qt{font-size:clamp(11px,min(.95vw,1.62vh),17px);color:#6e6e73;font-style:italic;line-height:1.6;margin:0;}
+.hero .qt em{color:#9a9aa2;}
+.hero .qs{font-size:clamp(13px,min(1.18vw,2vh),21px);color:#a1a1a6;line-height:1.6;margin:.55em 0 0;}
+.hero .qs strong{color:#fff;font-weight:700;}
+.hero .qcite{font-size:clamp(11px,min(.9vw,1.55vh),16px);color:#5a5a5f;margin:.45em 0 0;letter-spacing:.02em;}
+.hero .qcite strong{color:#8a8a90;font-weight:700;}
 .scrollhint{
   position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);
   color:#6e6e73;font-size:13px;letter-spacing:.1em;
@@ -310,11 +318,16 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 <body>
 
 <!-- ============ 1. 導入 ＋ 結論の数字 ============ -->
-<section class="hero" data-note="<b>【約35秒】</b>先ほど『Astraってどうなの』というお話がありましたので、まとめてきました。GPT-6 Astraは、OpenAIが今年9月に公開した最新モデルです。一言で申し上げると、『AIにはまだ無理』と思われていたことが、かなり減りました。象徴的なのがこの数字です。ある能力テストが、3月25日にほぼ0%、9月2日に62.7%。5か月あまりです。何のテストで、当社に何を意味するのかを、6分ほどでご説明します。">
+<section class="hero" data-note="<b>【約50秒】</b>先ほど『Astraってどうなの』というお話がありましたので、まとめてきました。GPT-6 Astraは、OpenAIが今年9月に公開した最新モデルです。一言で申し上げると、『AIにはまだ無理』と思われていたことが、かなり減りました。象徴的なのがこの数字です。ある能力テストが、3月25日にほぼ0%、9月2日に62.7%。5か月あまりです。下に引いたのは、トレーディングファームのJane Streetのコメントです。<b>コーディングだけでなく、トレーディングの判断力でも前モデルから明確に前進した</b>と評価しています。何のテストで、当社に何を意味するのかを、6分ほどでご説明します。">
   <div class="wrap center">
     <p class="q">「GPT-6 Astra って、結局どうなの？」</p>
     <p class="huge tight">0.5%<span class="arrowbig">→</span>62.7%</p>
     <p class="sub">わずか5か月あまりで、<span style="color:#5aa9f5;font-weight:700">「AIにはまだ無理」がかなり減った</span></p>
+    <div class="quote">
+      <p class="qt">“GPT‑6 Astra delivers state-of-the-art performance on our internal coding benchmarks and shows <em>a clear step forward in trading intuition evaluations</em> compared with GPT‑5.6 Sol.”</p>
+      <p class="qs">コーディングの社内評価で最高水準。<strong>トレーディングの判断力でも、前モデル Sol から<span class="nb">明確に前進した。</span></strong></p>
+      <p class="qcite">John Crepezzi — AI Assistants, <strong>Jane Street</strong>（トレーディングファーム）</p>
+    </div>
     <p class="ctx">
       GPT-6 Astra ／ OpenAI が 2026年9月に公開した最新モデル<br>
       数字は ARC-AGI-3（全課題が人間に解けることを確認済み）のスコア　2026年3月25日 → 9月2日<br>※100% ＝ 全レベルをクリアし、手数も人間の中央値並み、という基準点
@@ -541,37 +554,6 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
       <p class="c2">「自分で作業を進める力」が<span style="color:#5aa9f5">飛躍的に伸びた</span><span class="num">＋20〜55 ポイント</span></p>
       <p class="c3">だから、<span style="color:#5aa9f5;font-weight:700">任せられる仕事が急に広がった</span></p>
     </div>
-  </div>
-</section>
-
-<!-- ============ 8. 参考：Jane Street の評価（質疑用） ============ -->
-<section class="alt" data-note="<b>【参考・任意】</b>ここからは補足資料です。時間が余れば、あるいは質疑で聞かれたらお使いください。トレーディングファームのJane Streetは、OpenAIとAnthropic両社の発表にコメントを寄せています。OpenAI側へはAstraが自社の前モデルより前進したという内容、Anthropic側へはClaudeがtrading intuitionで最高水準に達したという内容です。つまり特定のベンダーを推しているわけではなく、実務家が目的に応じて使い分け始めているということです。当社で評価する際も、1社のベンチマークを鵜呑みにせず、自社の業務で複数モデルを比較検証することが重要になります。">
-  <div class="wrap">
-    <span class="badge" style="background:#6e6e73">参考 ／ 質疑用</span>
-    <p class="kicker">実務家の評価　Jane Street（トレーディングファーム）</p>
-    <h2>同じ評価者が、目的によって評価を分けている</h2>
-    <div class="grid2" style="margin-top:1.2em">
-      <div class="card">
-        <h3>OpenAI 向けコメント</h3>
-        <p style="font-style:italic;color:var(--ink);line-height:1.7">
-          “GPT‑6 Astra delivers state-of-the-art performance on our internal coding benchmarks and shows a clear step forward in trading intuition evaluations <strong>compared with GPT‑5.6 Sol</strong>.”
-        </p>
-        <p style="margin-top:.7em;color:var(--ink)">（要約）コーディングの社内評価で最高水準。トレーディングの判断力でも、前モデル Sol から明確に前進した。</p>
-        <p style="margin-top:.6em">John Crepezzi — AI Assistants, Jane Street</p>
-      </div>
-      <div class="card" style="border-color:var(--blue);border-width:2px">
-        <h3 class="pop">Anthropic 向けコメント</h3>
-        <p style="font-style:italic;color:var(--ink);line-height:1.7">
-          “Claude Fable 5.1 solves more of our coding problems than Fable 5 or Opus 5, and <strong>achieves state of the art on trading intuition</strong>.”
-        </p>
-        <p style="margin-top:.7em;color:var(--ink)">（要約）Claude Fable 5.1 は旧版より多くの課題を解き、<span class="nb">トレーディングの判断力</span>で最高水準に達した。</p>
-        <p style="margin-top:.6em">Craig Falls — Head of Quantitative Research, Jane Street</p>
-      </div>
-    </div>
-    <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(1.82vw,3.1vh),31px)">
-      実務家は、<span class="pop">1社のモデルを妄信せず</span>目的別に使い分け始めている
-    </p>
-    <p class="foot">それぞれ OpenAI 公式サイト・Anthropic 公式サイトに掲載の顧客コメント。左は Astra 社内の前モデル（GPT-5.6 Sol）比較であり、Claude との直接比較ではない。<span class="nb">Source: openai.com, anthropic.com</span></p>
   </div>
 </section>
 
