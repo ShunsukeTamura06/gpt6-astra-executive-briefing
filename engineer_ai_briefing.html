@@ -47,9 +47,9 @@ section{
   overflow:hidden;
 }
 .wrap{width:100%;max-width:1240px;}
-    /* 日本語を文節単位で折り返し、行末に1文字だけ残るのを防ぐ */
-    h2,h3,p,td,th,li,span,strong,small,em{word-break:auto-phrase;}
+    /* 行末に1文字だけ残る折り返しを避ける。語中で切りたくない語句は .nb で囲む */
     p,td,th,li{text-wrap:pretty;}
+    .nb{white-space:nowrap;}
 .center{text-align:center;}
 
 /* ---------- タイポ ---------- */
@@ -428,10 +428,10 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
           <tr class="grp"><td colspan="4" style="color:var(--blue)">自律作業　<span class="hint2">― 急伸</span></td></tr>
           <tr><td>AutomationBench<small>実務作業をどこまでやり切れるか</small></td><td>18.1%</td><td>41.4%</td><td class="g">+23.3</td></tr>
           <tr><td>Terminal-Bench 4.0<small>ターミナルでのIT作業（調査→実装→エラー修正→検証）</small></td><td>37.3%</td><td>57.9%</td><td class="g">+20.6</td></tr>
-          <tr><td>Terminal-Bench Science 0.1<small>研究作業（データ解析・シミュレーション・モデル当てはめ）</small></td><td>22.4%</td><td>64.6%</td><td class="g">+42.2</td></tr>
+          <tr><td>Terminal-Bench Science 0.1<small>研究作業（データ解析・シミュレーション・<span class="nb">モデル当てはめ</span>）</small></td><td>22.4%</td><td>64.6%</td><td class="g">+42.2</td></tr>
           <tr><td>ARC-AGI-3<small>説明書なしの初見課題（次ページ）</small></td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
         </table>
-        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
+        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<br><strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
       </div>
       <div class="card" style="border-color:var(--blue);border-width:2px;display:flex;flex-direction:column;justify-content:center">
         <h3 class="pop">ARC-AGI-3 の5か月あまり</h3>
@@ -440,9 +440,9 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
           <div class="bar"><div class="nm">7 / 9<small>GPT-5.6 Sol</small></div><div class="track"><div class="fill" style="--w:7.8%"></div></div><div class="vl">7.8%</div></div>
           <div class="bar"><div class="nm">7 / 24<small>Claude Opus 5</small></div><div class="track"><div class="fill" style="--w:30.2%"></div></div><div class="vl">30.2%</div></div>
           <div class="bar hl"><div class="nm">9 / 2<small>GPT-6 Astra</small></div><div class="track"><div class="fill key" style="--w:62.7%"></div></div><div class="vl">62.7%</div></div>
-          <div class="bar ref" style="margin-top:.2em"><div class="nm">満点<small>＝全クリア＋人間並みの手数</small></div><div class="track"></div><div class="vl">100%</div></div>
+          <div class="bar ref" style="margin-top:.2em"><div class="nm">満点<small>＝全クリア＋人間並み</small></div><div class="track"></div><div class="vl">100%</div></div>
         </div>
-        <p style="margin-top:.9em">いずれも<strong style="color:var(--ink)">各社を同じ条件に揃えた</strong>標準ハーネスでの測定。<strong style="color:var(--ink)">この62.7%には続きがある（6枚目）。</strong></p>
+        <p style="margin-top:.9em">いずれも<strong style="color:var(--ink)">各社を同じ条件に揃えた</strong>標準ハーネスでの測定。<br><strong style="color:var(--ink)">この62.7%には続きがある（6枚目）。</strong></p>
       </div>
     </div>
     <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。Source: OpenAI / ARC Prize Foundation</p>
@@ -457,7 +457,7 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
     <div class="grid2" style="margin-top:1em;align-items:center">
       <div class="center">
         <img src="assets/arc_game.png" alt="ARC-AGI-3 のゲーム画面" style="max-width:72%;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)">
-        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。誰でもブラウザで遊べます。</p>
+        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。<br>誰でもブラウザで遊べます。</p>
       </div>
       <div>
         <div class="center" style="margin-bottom:1em">
@@ -494,7 +494,7 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
       <strong style="color:var(--ink)">今回上がったのは操作できることではなく、</strong><span class="pop" style="font-weight:700">「何をすべきかを理解して、段取りを組む」力</span>。
     </p>
     <p class="foot center" style="border:1px solid var(--line);border-radius:10px;background:var(--bg-2);padding:.5em .85em;margin:0 auto .7em;max-width:64em;color:var(--ink)">
-      その裏づけ：同じ GUI 操作の評価（OSWorld 2.0）で、<strong>1タスクあたりの所要時間が約47%短い</strong>（約75分 → 約40分）。スコアの伸びは 65.7% → 72.6% と小さく、変わったのは点数より<strong>進み方</strong>。
+      その裏づけ：同じ GUI 操作の評価（OSWorld 2.0）で、<strong>1タスクあたりの所要時間が約47%短い</strong>（約75分 → 約40分）。<br>スコアの伸びは 65.7% → 72.6% と小さく、変わったのは点数より<strong>進み方</strong>。
     </p>
     <div class="grid2">
       <div>
@@ -539,13 +539,13 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
       </div>
     </div>
     <div class="cmp">
-      <div class="r"><b>62.7% の条件</b><span>1手打つたびに、モデルが組み立てた<strong style="color:var(--blue)">推論の途中経過が破棄される</strong>。次の手は、自分が書き残したメモだけを頼りに、状況を組み立て直すところから始まる</span></div>
-      <div class="r"><b>99.9% の条件</b><span>1手打っても<strong style="color:var(--blue)">推論の途中経過がそのまま残る</strong>。前の手で考えたことを引き継いで、続きから打てる</span></div>
+      <div class="r"><b>62.7% の条件</b><span>1手打つたびに、モデルが組み立てた<strong style="color:var(--blue)">推論の途中経過が破棄される</strong>。次の手は、<span class="nb">自分が書き残したメモ</span>だけを頼りに、状況を組み立て直すところから始まる</span></div>
+      <div class="r"><b>99.9% の条件</b><span>1手打っても<strong style="color:var(--blue)">推論の途中経過がそのまま残る</strong>。<span class="nb">前の手で考えたことを引き継いで打てる</span></span></div>
     </div>
     <p class="ask" style="margin-top:.7em">1手ごとに引き継ぎメモだけ渡して担当者が交代するか、<br>最初から最後まで<span class="pop">同じ人が通しでやるか</span>。</p>
     <p class="foot center" style="border:1px solid var(--line);border-radius:10px;background:var(--bg-2);padding:.65em .9em;margin-top:.85em;color:var(--ink);text-align:left">
-      <strong>この % は正答率ではない。</strong>レベルごとに <strong>（人間の基準手数 ÷ Astra の手数）²</strong> を採り、未クリアのレベルは 0 点。ゲームごとに<strong>レベル番号を重みとした加重平均</strong>を取り、全ゲームで平均したものがスコア（RHAE）。基準手数は<strong>そのレベルをクリアできた人</strong>の中央値。<br>
-      だから 99.9% は <strong>「ほぼ全レベルをクリアし、手数でも人間に並んだ」</strong>の意味になる。実際、解いたレベルの <strong>96.0%</strong> で人間の中央値より手数が少なく、平均 <strong>51.7% 少ない</strong>（いずれも Provider Adapter 条件での測定。厳密には 99.9% と同じ実行環境の別設定で、そちらのスコアは 98.6%）。
+      <strong>この % は正答率ではない。</strong>レベルごとに <strong>（人間の基準手数 ÷ Astra の手数）²</strong> を採り、未クリアのレベルは 0 点。ゲームごとに<strong>レベル番号を重みとした加重平均</strong>を取り、<span class="nb">全ゲームで平均したもの</span>がスコア（RHAE）。基準手数は<strong>そのレベルをクリアできた人</strong>の中央値。<br>
+      だから 99.9% は <strong>「ほぼ全レベルをクリアし、手数でも人間に並んだ」</strong>の意味になる。<br>実際、解いたレベルの <strong>96.0%</strong> で人間の中央値より手数が少なく、平均 <strong>51.7% 少ない</strong>（いずれも Provider Adapter 条件での測定。厳密には 99.9% と同じ実行環境の別設定で、<span class="nb">そちらのスコアは 98.6%</span>）。
     </p>
     <p class="foot center">62.7 と 99.9 は推論量の設定も異なるが、<strong style="color:var(--ink)">推論量を揃えて比べても 35.8〜45.1 ポイントの差</strong>が残る。<br>ただし内訳は非公開で、要素を一つずつ変えて測った実験ではない。　Source: ARC Prize Foundation</p>
   </div>
@@ -560,20 +560,20 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
       <div class="card">
         <h3>金額</h3>
         <p class="big-num" style="margin-top:.2em">約2.6<span class="unit">万ドル</span></p>
-        <p style="margin-top:.5em">標準条件で評価を1回まるごと走らせた費用。約 <strong style="color:#fff">400万円</strong>。文書を一本作らせるような日常利用の単価ではない。</p>
-        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">任せきりにするほど試行が増えて跳ね上がる。<strong style="color:#e8c979">どこまで自動でやってよいかを、誰が決めるのか。</strong></p>
+        <p style="margin-top:.5em">標準条件で評価を1回まるごと走らせた費用（約 <strong style="color:#fff">400万円</strong>）。<span class="nb">日常利用の単価ではない。</span></p>
+        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">任せきりにするほど試行が増えて<span class="nb">跳ね上がる。</span><strong style="color:#e8c979">どこまで自動でやってよいか、<span class="nb">誰が決めるのか。</span></strong></p>
       </div>
       <div class="card">
         <h3>正しさ</h3>
         <p>体裁は綺麗に仕上がるが、中身が正しいかは別。<strong style="color:#fff">BenchCAD 95.9%</strong> は3D画像から CAD コードを起こす評価だが、測っているのは<strong style="color:#e8c979">幾何形状の一致率</strong>。</p>
-        <p style="margin-top:.55em">実際、Astra が設計した電子回路の基板は、専門家から<strong style="color:#fff">安全性や法規への適合は別途検証が必要</strong>と指摘されている。</p>
-        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em"><strong style="color:#e8c979">結果が正しいかを誰が判定し、間違っていたらどう戻すのか。</strong>賢さとは別に、これが決まっていないと実務では使えない。</p>
+        <p style="margin-top:.55em">実際、Astra が設計した電子回路の基板は、専門家から<strong style="color:#fff">安全性や法規への適合は<span class="nb">別途検証が必要</span></strong>と指摘されている。</p>
+        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em"><strong style="color:#e8c979">結果が正しいかを誰が判定し、<span class="nb">間違っていたら</span>どう戻すのか。</strong>賢さとは別に、これが決まっていないと実務では使えない。</p>
       </div>
       <div class="card">
         <h3>前提</h3>
         <p>ゲームは<strong style="color:#fff">触れば反応が返る</strong>。だから説明書がなくてもルールに辿り着ける。</p>
         <p style="margin-top:.55em">社内の規程も、法令も、取引先との取り決めも、<strong style="color:#e8c979">画面をいくら触っても出てこない</strong>。</p>
-        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">自走できる力があっても、走り出す先がない。<strong style="color:#e8c979">その前提を、誰がどう渡すのか。</strong></p>
+        <p style="margin-top:.7em;border-top:1px solid #35353c;padding-top:.6em">自走できる力があっても、<span class="nb">走り出す先がない。</span><strong style="color:#e8c979">その前提を、<span class="nb">誰がどう渡すのか。</span></strong></p>
       </div>
     </div>
     <p class="ask" style="color:#fff">
@@ -682,8 +682,8 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
     </div>
     <div class="card factbox mini" style="margin-top:.75em;background:#fff">
       <p><strong class="pop">こちらは予測ではなく事実。しかも1か月で段が上がっている</strong></p>
-      <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。<strong style="color:var(--blue)">証明が正しいかを機械的に検証する仕組み（Lean 4）</strong>にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
-      <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、<strong style="color:var(--blue)">約1万体のAIを並列で動かし</strong>、88時間かけて証明に到達。同じく機械検証済み。</p>
+      <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。<strong style="color:var(--blue)">証明が正しいかを機械的に検証する仕組み<span class="nb">（Lean 4）</span></strong>にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
+      <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、<strong style="color:var(--blue)"><span class="nb">約1万体のAI</span>を並列で動かし</strong>、88時間かけて証明に到達。同じく機械検証済み。</p>
       <p class="cav">※ 9月8日の結果はAstra本体ではなく、その次の世代によるもの。Astraが古いという意味ではなく、世代交代がこの速さで進んでいるということ。なお、ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけで、全面解決ではない。独立検証・査読もこれからで、先行研究者との経緯には異論も出ている。</p>
     </div>
     <div class="closer">
@@ -704,15 +704,15 @@ audio{width:100%;margin:0;height:clamp(30px,3.6vh,40px);}
     <div class="grid2" style="margin-top:.9em;align-items:start">
       <div>
         <img src="assets/flstudio_screen.png" alt="Astra が操作した FL Studio の画面" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 28px rgba(0,0,0,.16)">
-        <p class="caption center" style="margin-top:.5em">13小節・32秒・96BPM・3トラック。<strong>チャンネルラック → ミキサー（F9）→ エフェクト → 書き出し</strong>まで、GUI 操作だけで。</p>
+        <p class="caption center" style="margin-top:.5em">13小節・32秒・96BPM・3トラック。<strong>チャンネルラック → <span class="nb">ミキサー（F9）</span>→ エフェクト → 書き出し</strong>まで、GUI 操作だけで。</p>
         <p class="playcue">▶　書き出された音声を再生（32秒）</p>
         <audio controls preload="none" src="assets/evening_window.wav"></audio>
         <p class="foot center" style="margin-top:.35em">1ターン <strong style="color:var(--ink)">2分41秒</strong>／途中で<strong style="color:var(--ink)">利用制限</strong>に到達／実行は<strong style="color:var(--ink)">フルアクセス</strong>で許可</p>
       </div>
       <div>
         <p class="quote">
-          「Mixerを開く<span class="mk2">「F9」</span>は、FL Studio のショートカットとして<span class="mk2">知っていました</span>。画面から推測したわけではありません。<br>
-          開いた後は<span class="mk2">実際の画面を確認して</span>、エフェクトの追加先やつまみを選んで操作しています。」
+          「Mixerを開く<span class="mk2">「F9」</span>は、FL Studio のショートカットとして<span class="mk2">知っていました</span>。<span class="nb">画面から推測したわけではありません。</span><br>
+          開いた後は<span class="mk2">実際の画面を確認して</span>、エフェクトの追加先や<span class="nb">つまみを選んで操作しています。</span>」
           <span class="src">―― 「Mixer の開き方って知ってたの？　それとも画面から推測した？」への回答</span>
         </p>
         <img src="assets/flstudio_chat.png" alt="Astra とのやり取り" style="width:100%;margin-top:.9em;border-radius:10px;border:1px solid var(--line)">
