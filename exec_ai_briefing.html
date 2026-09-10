@@ -47,6 +47,9 @@ section{
   overflow:hidden;
 }
 .wrap{width:100%;max-width:1240px;}
+/* 行末に1文字だけ残る折り返しを避ける。語中で切りたくない語句は .nb で囲む */
+p,td,th,li{text-wrap:pretty;}
+.nb{white-space:nowrap;}
 .center{text-align:center;}
 
 /* ---------- タイポ ---------- */
@@ -321,7 +324,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
 </section>
 
 <!-- ============ 2. 何が伸びたのか（比較表 ＋ 推移） ============ -->
-<section data-note="<b>【約55秒】</b>何が伸びたのか、です。左の表、上段の科学的推論は94.6%が96.0%。1.4ポイントです。もともと頭打ちで、チャットで数問試しても差は分かりません。ところが下段、自分で環境を理解して作業を進める課題は、20から55ポイント動いています。伸びている軸が変わりました。右が推移です。3月25日の公開時点でフロンティア最高が0.51%。7月に7.8%、7月末に30.2%、9月2日のAstraで62.7%です。縞の棒の99.9%は、同じAstraを別の測り方で測ったものです。62.7%は各社を同じ条件に揃えたとき、99.9%はAstraの力を最大限引き出したときの数字です。一番下の破線は満点の目安で、人間が取った点数ではありません。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『なぜ2つあるのか』→99.9%の条件はOpenAI自身の実行環境で、他社に同じ条件を与えられないため横並び比較には使えません。ARC Prizeは今後も両方を条件名付きで併記する方針です。(2)『何が違うのか』→共通条件では1手ごとに考えた内容が捨てられ、自分のメモから状況を組み立て直します。最大条件では考えた内容を保持したまま続けられます。1手ごとに担当者が交代するか、通しで同じ担当者がやるかの違いとお考えください。</span>">
+<section data-note="<b>【約55秒】</b>何が伸びたのか、です。左の表、上段の科学的推論は94.6%が96.0%。1.4ポイントです。もともと頭打ちで、チャットで数問試しても差は分かりません。ところが下段、自分で環境を理解して作業を進める課題は、20から55ポイント動いています。伸びている軸が変わりました。右が推移です。3月25日の公開時点でフロンティア最高が0.51%。7月に7.8%、7月末に30.2%、9月2日のAstraで62.7%です。縞の棒の99.9%は、同じAstraを別の測り方で測ったものです。62.7%は各社を同じ条件に揃えたとき、99.9%はAstraの力を最大限引き出したときの数字です。一番下の破線は満点の目安で、人間が取った点数ではありません。<br><span class=qa>── ここから下は読み上げません（質疑用） ── (1)『なぜ2つあるのか』→99.9%の条件はOpenAI自身の実行環境で、他社に同じ条件を与えられないため横並び比較には使えません。ARC Prizeは今後も両方を条件名付きで併記する方針です。(2)『何が違うのか』→62.7%の条件では、1手ごとにAIが考えている途中の筋道が消え、自分が残したメモだけから状況を組み立て直します。99.9%の条件ではそれが残ったまま続けられます。1手ごとに引き継ぎメモだけ渡して担当者が交代するか、最初から最後まで同じ担当者が通しでやるかの違いとお考えください。</span>">
   <div class="wrap">
     <p class="kicker">何が伸びたのか</p>
     <h2>伸びたのは「知識」ではなく<br><span class="pop">「自分で作業を進める力」</span></h2>
@@ -336,7 +339,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
           <tr><td>Terminal-Bench 4.0<small>PC上の作業をやり切れるか</small></td><td>37.3%</td><td>57.9%</td><td class="g">+20.6</td></tr>
           <tr><td>ARC-AGI-3<small>説明書なしの初見課題（次ページ）</small></td><td>7.8%</td><td>62.7%</td><td class="g">+54.9</td></tr>
         </table>
-        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
+        <p style="margin-top:1em">数問チャットで試しても差は体感できない。<br><strong style="color:var(--ink)">伸びている軸が変わった。</strong></p>
       </div>
       <div class="card" style="border-color:var(--blue);border-width:2px;display:flex;flex-direction:column;justify-content:center">
         <h3 class="pop">ARC-AGI-3 の5か月あまり</h3>
@@ -346,13 +349,13 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
           <div class="bar"><div class="nm">7 / 24<small>Claude Opus 5</small></div><div class="track"><div class="fill" style="--w:30.2%"></div></div><div class="vl">30.2%</div></div>
           <div class="bar hl"><div class="nm">9 / 2<small>GPT-6 Astra</small></div><div class="track"><div class="fill key" style="--w:62.7%"></div></div><div class="vl">62.7%</div></div>
           <div class="bar hl"><div class="nm">9 / 2<small>同 Astra・別の測り方</small></div><div class="track"><div class="fill cond" style="--w:99.9%"></div></div><div class="vl">99.9%</div></div>
-          <div class="bar ref" style="margin-top:.2em"><div class="nm">満点<small>＝全クリア＋人間並みの手数</small></div><div class="track"></div><div class="vl">100%</div></div>
+          <div class="bar ref" style="margin-top:.2em"><div class="nm">満点<small>＝全クリア＋人間並み</small></div><div class="track"></div><div class="vl">100%</div></div>
         </div>
         <p style="margin-top:.9em"><span style="display:inline-block;width:22px;height:9px;border-radius:99px;background:repeating-linear-gradient(135deg,var(--blue) 0 4px,#6ea8e4 4px 8px);margin-right:.5em;vertical-align:middle"></span>縞の棒は<strong style="color:var(--ink)">横並び比較できない条件</strong>での数字。</p>
       </div>
     </div>
     <div class="numnote">
-      <p><strong>「Astraは99.9%」と聞いた場合　</strong>どちらも本当で、測り方が2通りあります。<span class="k">62.7%</span> は<strong>各社を同じ条件に揃えて比べた</strong>とき、<span class="k">99.9%</span> は<strong>途中まで考えた内容を保持したまま解き進められる</strong>条件で、Astraの力を最大限引き出したときの数字です。</p>
+      <p><strong>「Astraは99.9%」と聞いた場合　</strong>どちらも本当で、測り方が2通りあります。<span class="k">62.7%</span> は<strong>各社を同じ条件に揃えて比べた</strong>とき。<span class="k">99.9%</span> は<strong><span class="nb">OpenAI 自身の実行環境</span></strong>で、Astraの力を最大限引き出したときの数字です。</p>
     </div>
     <p class="foot">GPT-5.6 Sol と GPT-6 Astra の比較。ARC-AGI-3 は非公開の問題セットでの測定。Source: OpenAI / ARC Prize Foundation</p>
   </div>
@@ -366,7 +369,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
     <div class="grid2" style="margin-top:1em;align-items:center">
       <div class="center">
         <img src="assets/arc_game.png" alt="ARC-AGI-3 のゲーム画面" style="max-width:72%;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)">
-        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。誰でもブラウザで遊べます。</p>
+        <p class="foot" style="margin-top:.9em">arcprize.org で公開されている実際のゲーム画面（Task ls20）。<br>誰でもブラウザで遊べます。</p>
       </div>
       <div>
         <div class="center" style="margin-bottom:1em">
@@ -375,7 +378,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
           <span class="tag">操作方法　教えない</span>
         </div>
         <p class="center" style="font-size:clamp(17px,min(1.72vw,2.92vh),30px);color:var(--ink);font-weight:700;line-height:1.55;margin:0">
-          探索 → 仕組みを理解<br>→ 目標を見つける → 計画して実行
+          探索 → 仕組みを理解 →<br>目標を見つける → 計画して実行
         </p>
         <p class="lead center" style="margin-top:1em">
           正解を知っているかではなく、初めての環境で<br>「何をすべきか」を自分で組み立てられるか。
@@ -386,7 +389,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
         <div class="grid2" style="gap:12px;margin-top:.7em">
           <div class="card mini center">
             <p class="big-num pop"><span data-count-to="96.0" data-decimals="1">0.0</span><span class="unit">%</span></p>
-            <p style="margin-top:.7em">解けたレベルのうち、人間の中央値より<strong style="color:var(--ink)">少ない操作</strong>で到達した割合</p>
+            <p style="margin-top:.7em">解けたレベルのうち、人間の中央値より<strong style="color:var(--ink)">少ない操作</strong>で<span class="nb">到達した割合</span></p>
           </div>
           <div class="card mini center">
             <p class="big-num pop"><span data-count-to="51.7" data-decimals="1">0.0</span><span class="unit">%</span></p>
@@ -452,7 +455,7 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
         <p style="margin-top:.9em;color:var(--ink);font-weight:700;font-size:clamp(15px,min(1.32vw,2.25vh),24px);border-top:1px solid var(--line);padding-top:.8em">
           「AIが使える形」に仕事の側を変える必要があった
         </p>
-        <p class="foot" style="margin-top:.7em">API＝外部のシステムから呼び出すための接続口／RPA＝人の画面操作を記録して自動再生する仕組み</p>
+        <p class="foot" style="margin-top:.7em">API＝外部のシステムから呼び出すための接続口／RPA＝<span class="nb">人の画面操作を記録して</span>自動再生する仕組み</p>
       </div>
       <div class="card" style="border-color:var(--blue);border-width:2px">
         <h3 class="pop">これから　― ほぼそのまま通る</h3>
@@ -484,19 +487,19 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
         <h3>コスト</h3>
         <p class="big-num">約2.6<span class="unit">万ドル</span></p>
         <p style="margin-top:.8em">ARC-AGI-3 の評価を<strong style="color:#f5f5f7">丸ごと1回</strong>走らせた費用（約400万円）。難しい課題を任せきりにするほど試行が増え、費用が跳ね上がる。</p>
-        <p style="margin-top:.7em;font-size:.92em;border-top:1px solid #35353c;padding-top:.7em">※ <strong style="color:#f5f5f7">文書作成のような日常的な利用の単価とは別の話。</strong>／99.9%を出した条件では約1.9万ドルで、スコアが高い方が安いという逆転も起きている。</p>
+        <p style="margin-top:.7em;font-size:.92em;border-top:1px solid #35353c;padding-top:.7em">※ <strong style="color:#f5f5f7">文書作成のような日常的な利用の<span class="nb">単価とは別の話。</span></strong>／99.9%を出した条件では約1.9万ドルで、スコアが高い方が安いという逆転も起きている。</p>
       </div>
       <div class="card">
         <h3>成果物の検証</h3>
         <p style="font-size:clamp(17px,min(1.62vw,2.75vh),28px);line-height:1.5;color:#f5f5f7;font-weight:700;margin:.3em 0">
           一見、完成して<br>見えてしまう
         </p>
-        <p style="margin-top:.8em">Astraが設計した電子回路の基板について、専門のエンジニアからは「安全性や法規への適合は結局あらためて検証が必要」との指摘。<strong style="color:#f5f5f7">形になることと、そのまま使えることは別。</strong></p>
+        <p style="margin-top:.8em">Astraが設計した電子回路の基板について、専門のエンジニアからは「安全性や法規への適合は結局あらためて検証が必要」との指摘。<strong style="color:#f5f5f7">形になることと、<span class="nb">そのまま使えることは別。</span></strong></p>
       </div>
       <div class="card">
         <h3>まだ届いていない</h3>
         <p class="big-num">62.7<span class="unit">%</span></p>
-        <p style="margin-top:.8em">基準の100%は<strong style="color:#f5f5f7">「全レベルをクリアし、手数も人間の中央値並み」</strong>。共通条件のAstraはそこに届いていない。解けなかった分と、人間より手数がかかった分の両方が引かれた結果。</p>
+        <p style="margin-top:.8em">基準の100%は<strong style="color:#f5f5f7">「全レベルをクリアし、<span class="nb">手数も人間の中央値並み」</span></strong>。共通条件のAstraはそこに届いていない。<span class="nb">解けなかった分</span>と、<span class="nb">人間より手数がかかった分</span>の両方が引かれている。</p>
       </div>
     </div>
     <p class="center" style="margin:1.3em 0 0;font-weight:700;font-size:clamp(18px,min(2vw,3.4vh),34px);color:#fff">
@@ -529,9 +532,9 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
     </div>
     <div class="card factbox" style="margin-top:1em;background:#fff">
       <p><strong class="pop">こちらは予測ではなく事実。しかも1か月で段が上がっている</strong></p>
-      <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。証明が正しいかを機械的に検証する仕組み（Lean 4）にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
-      <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、約1万体のAIを並列で動かし、88時間かけて証明に到達。同じく機械検証済み。</p>
-      <p class="cav">※ <strong style="color:var(--ink)">9月8日の結果はAstra本体ではなく、その次の世代によるもの。Astraが古いという意味ではなく、世代交代がこの速さで進んでいるということ。</strong>なお、ナビエ・ストークスには4通りの問題設定があり、証明されたのは外から力を加える場合の2つだけで、全面解決ではない。独立検証・査読もこれからで、先行研究者との経緯には異論も出ている。</p>
+      <p><span class="when">2026年8月</span><strong>公開前のAstra</strong>が、数学・理論計算機科学の未解決問題 <strong>10件で解決または大幅な進展</strong>。証明が正しいかを機械的に検証する仕組み<span class="nb">（Lean 4）</span>にかけたうえで GitHub 公開。費用は合計 約2,000ドル。</p>
+      <p><span class="when">2026年9月8日</span><strong>Astra の次の世代（未公開）</strong>が、ミレニアム懸賞問題（賞金100万ドル）の一つ <strong>「ナビエ・ストークス方程式」</strong> で、<span class="nb">約1万体のAIを並列で動かし</span>、88時間かけて証明に到達。同じく機械検証済み。</p>
+      <p class="cav">※ <strong style="color:var(--ink)">9月8日の結果はAstra本体ではなく、その次の世代によるもの。Astraが古いという意味ではなく、世代交代がこの速さで進んでいるということ。</strong>なお、ナビエ・ストークスには<span class="nb">4通りの問題設定</span>があり、証明されたのは外から力を加える場合の2つだけで、全面解決ではない。独立検証・査読もこれからで、先行研究者との経緯には異論も出ている。</p>
     </div>
     <div class="closer">
       <p class="c1">チャットとしての賢さ　―　これまで通りの伸び<span class="num">＋1.4 ポイント</span></p>
@@ -561,14 +564,14 @@ td small,th small{display:block;color:var(--ink-2);font-size:.8em;font-weight:40
         <p style="font-style:italic;color:var(--ink);line-height:1.7">
           “Claude Fable 5.1 solves more of our coding problems than Fable 5 or Opus 5, and <strong>achieves state of the art on trading intuition</strong>.”
         </p>
-        <p style="margin-top:.7em;color:var(--ink)">（要約）Claude Fable 5.1 は旧版より多くの課題を解き、トレーディングの判断力で最高水準に達した。</p>
+        <p style="margin-top:.7em;color:var(--ink)">（要約）Claude Fable 5.1 は旧版より多くの課題を解き、<span class="nb">トレーディングの判断力</span>で最高水準に達した。</p>
         <p style="margin-top:.6em">Craig Falls — Head of Quantitative Research, Jane Street</p>
       </div>
     </div>
     <p class="center" style="margin:1.2em 0 0;color:var(--ink);font-weight:700;font-size:clamp(17px,min(1.82vw,3.1vh),31px)">
       実務家は、<span class="pop">1社のモデルを妄信せず</span>目的別に使い分け始めている
     </p>
-    <p class="foot">それぞれ OpenAI 公式サイト・Anthropic 公式サイトに掲載の顧客コメント。左は Astra 社内の前モデル（GPT-5.6 Sol）比較であり、Claude との直接比較ではない。Source: openai.com, anthropic.com</p>
+    <p class="foot">それぞれ OpenAI 公式サイト・Anthropic 公式サイトに掲載の顧客コメント。左は Astra 社内の前モデル（GPT-5.6 Sol）比較であり、Claude との直接比較ではない。<span class="nb">Source: openai.com, anthropic.com</span></p>
   </div>
 </section>
 
