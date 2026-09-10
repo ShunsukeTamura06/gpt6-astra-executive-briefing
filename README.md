@@ -14,7 +14,7 @@ ARC-AGI-3のスコア推移（2026年3月 ほぼ0% → 9月 62.7%）を題材に
 | ファイル | 対象 | 読み上げ時間 |
 |---|---|---|
 | `engineer_briefing_script.md` | エンジニア版 11ページ | 約16分15秒 |
-| `exec_briefing_script.md` | 役員版 7ページ | 約7分10秒 |
+| `exec_briefing_script.md` | 役員版 7ページ | 約3分55秒 |
 
 ```bash
 uv run tools/extract_script.py engineer_ai_briefing.html engineer_briefing_script.md
